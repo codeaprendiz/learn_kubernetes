@@ -43,5 +43,5 @@ token:      COPY_THIS_VALUE
 
 - Post login screen
 
-![](.README_images/Post login screen.png)
+![](.README_images/Post_login_screen.png)
 
