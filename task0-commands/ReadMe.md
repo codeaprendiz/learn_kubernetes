@@ -11,9 +11,9 @@
 ## apply
 [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
 
-- To apply the yaml www.yaml
+- To apply the yaml resources.yaml
 ```bash
-$ kubectl apply -f www.yaml
+$ kubectl apply -f resources.yaml
 deployment.apps/www created
 service/www created
 ```
