@@ -1,10 +1,31 @@
 ## Contents
+- [apply](#apply)
+- [delete](#delete)
 - [describe](#describe)
     - [pod](#pod)
 - [get](#get)
     - [namespace](#namespace)
     - [pod](#pod)
 
+
+## apply
+[apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
+
+- To apply the yaml www.yaml
+```bash
+$ kubectl apply -f www.yaml
+deployment.apps/www created
+service/www created
+```
+
+## delete
+[delete](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete)
+
+- To delete deployment with name 'www' from default namespace
+```bash
+$ kubectl delete deployment www
+deployment.extensions "www" deleted
+```
 
 ## describe
 [describe](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#describe)
