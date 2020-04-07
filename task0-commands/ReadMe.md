@@ -22,6 +22,7 @@ Events:          <none>
 ```
 
 ## get
+[get](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get)
 ### namespace
 - To get all the namespace resources
 ```bash
