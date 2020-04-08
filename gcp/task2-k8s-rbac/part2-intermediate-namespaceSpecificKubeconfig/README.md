@@ -154,11 +154,11 @@ metrics-server-v0.3.1-5c6fbf777-7gm6j                       2/2     Running   0 
 $ kubectl delete pod metrics-server-v0.3.1-5c6fbf777-7gm6j -n kube-system
 pod "metrics-server-v0.3.1-5c6fbf777-7gm6j" deleted
 
-$ kubectl apply -f www.yaml     
+$ kubectl apply -f web.yaml     
 deployment.apps/www created
 service/www created
 
-$ kubectl delete -f www.yaml
+$ kubectl delete -f web.yaml
 deployment.apps "www" deleted
 service "www" deleted
 ```
