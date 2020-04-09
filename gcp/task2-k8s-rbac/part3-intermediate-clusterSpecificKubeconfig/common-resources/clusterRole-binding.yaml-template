@@ -8,6 +8,6 @@ subjects:
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: role-SUBSTITUTE_CLUSTER_NAME
+  name: role-SUBSTITUTE_CLUSTER_NAME-SUBSTITUTE_GROUPNAME-SUBSTITUTE_ACCESS_TYPE
   apiGroup: rbac.authorization.k8s.io
 
