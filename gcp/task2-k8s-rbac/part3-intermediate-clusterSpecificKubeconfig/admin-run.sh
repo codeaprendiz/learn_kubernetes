@@ -2,7 +2,7 @@
 
 if [ $# -lt 3 ]
 then
-  echo "Usage: ./admin-run.sh <namespace-folder> <user-group> <access-type> <kubeconfig-cluster-folder>"
+  echo "Usage: ./admin-run.sh  <user-group> <access-type> <kubeconfig-cluster-folder>"
   exit 0
 fi
 

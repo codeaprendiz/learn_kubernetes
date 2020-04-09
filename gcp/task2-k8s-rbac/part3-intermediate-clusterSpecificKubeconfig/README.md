@@ -133,6 +133,11 @@ dave.key   kubeconfig
 
 $ export KUBECONFIG=$PWD/kubeconfig
 
+$ kubectl config set-credentials dave \
+    --client-key=$PWD/dave.key \
+    --embed-certs=true
+  User "dave" set.
+
 $ kubectl get pods -n kube-system                                                  
 NAME                                                        READY   STATUS    RESTARTS   AGE
 prometheus-to-sd-xx9nx                                      2/2     Running   0          14h
