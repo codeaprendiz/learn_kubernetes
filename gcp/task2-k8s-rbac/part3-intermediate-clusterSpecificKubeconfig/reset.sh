@@ -1,37 +1,37 @@
 #!/usr/bin/env bash
 
 
-if [ $# -lt 3 ]
+if [ $# -lt 2 ]
 then
-  echo "Usage: ./reset.sh <namespace> <user-group> <kubeconfig-cluster-folder>"
+  echo "Usage: ./reset.sh <user-group> <kubeconfig-cluster-folder>"
   exit 0
 fi
 
-FOLDER_NAMESPACE=$1
-FOLDER_USER_GROUP=$2
-KUBCONFIG_CLUSTER_FOLDER=$3
+
+FOLDER_USER_GROUP=$1
+KUBCONFIG_CLUSTER_FOLDER=$2
 
 
-export NAME_OF_CSR="$FOLDER_NAMESPACE-csr"
+export NAME_OF_CSR="cluster-level-csr"
 
 kubectl delete csr "$NAME_OF_CSR"
 
 
 
-if test -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_NAMESPACE/$FOLDER_USER_GROUP/role-readonly.yaml"; then
-    kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_NAMESPACE/$FOLDER_USER_GROUP/role-readonly.yaml"
+if test -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readonly.yaml"; then
+    kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readonly.yaml"
 fi
 
-if test -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_NAMESPACE/$FOLDER_USER_GROUP/role-readwrite.yaml"; then
-    kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_NAMESPACE/$FOLDER_USER_GROUP/role-readwrite.yaml"
+if test -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readwrite.yaml"; then
+    kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readwrite.yaml"
 fi
 
 
 
-kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_NAMESPACE/$FOLDER_USER_GROUP/role-binding.yaml"
+kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-binding.yaml"
 
 
-rm -rf ./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_NAMESPACE/$FOLDER_USER_GROUP/*
+rm -rf ./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/*
 
 
 
