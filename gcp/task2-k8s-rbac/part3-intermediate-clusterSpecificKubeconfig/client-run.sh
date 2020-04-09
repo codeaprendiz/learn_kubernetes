@@ -3,7 +3,7 @@
 
 if [ $# -lt 3 ]
 then
-  echo "Usage: ./client-run.sh <namespace-folder> <user-group> <access-type> <kubeconfig-cluster-folder>"
+  echo "Usage: ./client-run.sh <user-group> <access-type> <kubeconfig-cluster-folder>"
   exit 0
 fi
 
