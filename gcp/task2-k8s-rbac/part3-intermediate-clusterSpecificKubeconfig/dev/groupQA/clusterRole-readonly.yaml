@@ -1,7 +1,7 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
- name: role-dev
+ name: role-dev-groupQA-R
 rules:
 - apiGroups: [""]
   resources: ["pods", "services"]
