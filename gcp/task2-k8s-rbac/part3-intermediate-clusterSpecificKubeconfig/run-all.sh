@@ -22,7 +22,7 @@ generate()
   echo "-------------------------------"
   echo "          Resetting previous changes           "
   echo "-------------------------------"
-  ./reset.sh $FOLDER_USER_GROUP $KUBCONFIG_CLUSTER_FOLDER
+  ./reset.sh $FOLDER_USER_GROUP $KUBCONFIG_CLUSTER_FOLDER $ACCESS_TYPE
 
   echo "-------------------------------"
   echo "          Client Cert Generation           "
