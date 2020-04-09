@@ -20,7 +20,7 @@ assignVars()
 generate()
 {
   echo "-------------------------------"
-  echo "          Resetting previous changes           "
+  echo "          Resetting previous changes  $FOLDER_USER_GROUP $KUBCONFIG_CLUSTER_FOLDER $ACCESS_TYPE         "
   echo "-------------------------------"
   ./reset.sh $FOLDER_USER_GROUP $KUBCONFIG_CLUSTER_FOLDER $ACCESS_TYPE
 
