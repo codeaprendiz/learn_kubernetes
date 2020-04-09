@@ -12,7 +12,7 @@ FOLDER_USER_GROUP=$1
 KUBCONFIG_CLUSTER_FOLDER=$2
 
 
-export NAME_OF_CSR="cluster-level-csr"
+export NAME_OF_CSR="$KUBCONFIG_CLUSTER_FOLDER-csr"
 
 kubectl delete csr "$NAME_OF_CSR"
 
