@@ -18,18 +18,9 @@ export NAME_OF_CSR="$KUBCONFIG_CLUSTER_FOLDER-$FOLDER_USER_GROUP-$ACCESS_TYPE-cs
 kubectl delete csr "$NAME_OF_CSR"
 
 
+kubectl delete clusterrole "role-$KUBCONFIG_CLUSTER_FOLDER-$FOLDER_USER_GROUP-$ACCESS_TYPE"
 
-if test -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readonly.yaml"; then
-    kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readonly.yaml"
-fi
-
-if test -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readwrite.yaml"; then
-    kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-readwrite.yaml"
-fi
-
-
-
-kubectl delete -f "./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/clusterRole-binding.yaml"
+kubectl delete clusterrolebinding "rolebinding-$KUBCONFIG_CLUSTER_FOLDER-$FOLDER_USER_GROUP-$ACCESS_TYPE"
 
 
 rm -rf ./$KUBCONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/*
