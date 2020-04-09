@@ -1,7 +1,7 @@
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rolebinding-monitoring-ns
+  name: rolebinding-SUBSTITUTE_CLUSTER_NAME-SUBSTITUTE_GROUPNAME-SUBSTITUTE_ACCESS_TYPE
 subjects:
   - kind: Group
     name: SUBSTITUTE_GROUPNAME

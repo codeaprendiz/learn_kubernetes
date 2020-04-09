@@ -13,7 +13,7 @@ KUBECONFIG_CLUSTER_FOLDER=$3
 
 # Encoding the .csr file in base64
 export BASE64_CSR=$(cat ./$KUBECONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/dave.csr | base64 | tr -d '\n')
-export NAME_OF_CSR="$KUBECONFIG_CLUSTER_FOLDER-csr"
+export NAME_OF_CSR="$KUBECONFIG_CLUSTER_FOLDER-$FOLDER_USER_GROUP-$ACCESS_TYPE-csr"
 # Substitution of the BASE64_CSR env variable and creation of the CertificateSigninRequest resource
 cat ./common-resources/csr.yaml | envsubst > ./$KUBECONFIG_CLUSTER_FOLDER/$FOLDER_USER_GROUP/csr.yaml
 cat ./common-resources/csr.yaml | envsubst | kubectl apply -f -
