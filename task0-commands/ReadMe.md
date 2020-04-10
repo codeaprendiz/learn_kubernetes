@@ -81,7 +81,7 @@ $ kubectl get pod traefik-nb8p2 -n ingress -o yaml
 
 ## logs
 ### since
-- To get the output of logs of a given resource like pods
+- To get the output of logs of a given resource like 'pod' since last one hour
 ```bash
 KUBECONFIG=$HOME/kubernetes/kubeconfig kubectl logs --since=1h module-5c8986fb69-8jvwx -n backend
 ```
