@@ -1,6 +1,9 @@
-## Contents
+# kubectl
 
 - [apply](#apply)
+- [config](#config)
+    - [view](#view)
+    - [set-credentials](#set-credentials)
 - [delete](#delete)
 - [describe](#describe)
     - [pod](#pod)
@@ -9,6 +12,8 @@
     - [pod](#pod)
 - [logs](#logs)
     - [since](#since)
+
+# kubetail
 
 
 ## apply
@@ -19,6 +24,24 @@
 $ kubectl apply -f resources.yaml
 deployment.apps/www created
 service/www created
+```
+
+## config
+[config](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#config)
+
+### view
+- To display merged kubeconfig settings or a specified kubeconfig file.
+```bash
+$ kubectl config view --raw -o json | jq -r '.clusters[].cluster."server"'
+https://kubernetes.docker.internal:6443
+```
+
+
+### set-credentials
+- To set a user 'dave' entry in kubeconfig
+
+```bash
+kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true
 ```
 
 ## delete
@@ -80,6 +103,7 @@ $ kubectl get pod traefik-nb8p2 -n ingress -o yaml
 ```
 
 ## logs
+[logs](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs)
 ### since
 - To get the output of logs of a given resource like 'pod' since last one hour
 ```bash
