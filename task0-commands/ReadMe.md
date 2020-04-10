@@ -109,6 +109,11 @@ KUBECONFIG=$HOME/kubernetes/kubeconfig kubectl logs --since=1h module-5c8986fb69
 ```
 
 ### -f
+- Begin streaming the logs of the ruby container in pod web-1
+```bash
+kubectl logs -f -c ruby web-1
+```
+
 - Begin streaming the logs from all containers in pods defined by label app=nginx
 ```bash
 kubectl logs -f -lapp=nginx --all-containers=true
