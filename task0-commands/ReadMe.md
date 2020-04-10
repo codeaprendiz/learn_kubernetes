@@ -12,9 +12,7 @@
     - [pod](#pod)
 - [logs](#logs)
     - [since](#since)
-
-# kubetail
-
+    - [-f](#-f)
 
 ## apply
 [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
@@ -110,6 +108,11 @@ $ kubectl get pod traefik-nb8p2 -n ingress -o yaml
 KUBECONFIG=$HOME/kubernetes/kubeconfig kubectl logs --since=1h module-5c8986fb69-8jvwx -n backend
 ```
 
+### -f
+- Begin streaming the logs from all containers in pods defined by label app=nginx
+```bash
+kubectl logs -f -lapp=nginx --all-containers=true
+```
 
 ## Test
 test
