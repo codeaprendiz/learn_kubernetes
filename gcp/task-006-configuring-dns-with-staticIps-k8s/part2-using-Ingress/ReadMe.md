@@ -63,25 +63,21 @@ status: RESERVED
 - Use the above static IP to create a manifest file named `helloweb-ingress.yaml` describing these two resources:
   
 
-- Create the service
+- Apply the helloweb-ingress.yaml manifest file to the cluster:
+  
 
 ```bash
-$ kubectl apply -f helloweb-service.yaml
-service/helloweb created
+$ kubectl apply -f helloweb-ingress.yaml
+ingress.extensions/helloweb created
+service/helloweb-backend created
 ```
 
-- To see the reserved IP address associated with the load balancer:
+- To see the reserve IP address associated with the load balancer:
   
 ```bash
-$ kubectl get service
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-helloweb     LoadBalancer   10.127.11.151   <pending>     80:30354/TCP   36s
-kubernetes   ClusterIP      10.127.0.1      <none>        443/TCP        73m
-
-$ kubectl get service
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
-helloweb     LoadBalancer   10.127.11.151   34.67.51.160   80:30354/TCP   99s
-kubernetes   ClusterIP      10.127.0.1      <none>         443/TCP        74m
+$ kubectl get ingress
+NAME       HOSTS   ADDRESS         PORTS   AGE
+helloweb   *       35.190.35.174   80      49s
 ```
 
 ### Step 3: 
@@ -89,7 +85,7 @@ kubernetes   ClusterIP      10.127.0.1      <none>         443/TCP        74m
 Visit your reserved static IP address
 
 ```bash
-$ curl http://34.67.51.160           
+$ curl http://35.190.35.174
 Hello, world!
 Version: 1.0.0
 Hostname: helloweb-7f7f7474fc-ghncd
@@ -130,13 +126,13 @@ service "helloweb" deleted
 - Release the reserved static IP
 
 ```bash
-$ gcloud compute addresses delete helloweb-ip --region us-central1
-The following addresses will be deleted:
- - [helloweb-ip] in [us-central1]
+$ gcloud compute addresses delete helloweb-ip --global
+The following global addresses will be deleted:
+ - [helloweb-ip]
 
 Do you want to continue (Y/n)?  Y
 
-Deleted [https://www.googleapis.com/compute/v1/projects/gcloud-262311/regions/us-central1/addresses/helloweb-ip].
+Deleted [https://www.googleapis.com/compute/v1/projects/gcloud-262311/global/addresses/helloweb-ip].
 ```
 
 - Delete the sample application:
