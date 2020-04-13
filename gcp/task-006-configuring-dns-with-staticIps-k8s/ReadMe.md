@@ -110,3 +110,31 @@ Hello, world!
 Version: 1.0.0
 Hostname: helloweb-7f7f7474fc-ghncd
 ```
+
+## Cleaning up
+
+- Delete the load balancing resources:
+  
+```bash
+$ kubectl delete ingress,service -l app=hello
+service "helloweb" deleted
+```
+
+- Release the reserved static IP
+
+```bash
+$ gcloud compute addresses delete helloweb-ip --region us-central1
+The following addresses will be deleted:
+ - [helloweb-ip] in [us-central1]
+
+Do you want to continue (Y/n)?  Y
+
+Deleted [https://www.googleapis.com/compute/v1/projects/gcloud-262311/regions/us-central1/addresses/helloweb-ip].
+```
+
+- Delete the sample application:
+  
+```bash
+$ kubectl delete -f helloweb-deployment.yaml
+deployment.apps "helloweb" deleted
+```
