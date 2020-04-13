@@ -1,6 +1,8 @@
+# Exposing an External IP Address to Access an Application in a Cluster
 
+[Referred Doc](https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-
+- Run a Hello World application in your cluster:
 
 ```bash
 $ kubectl apply -f service/load-balancer-example.yaml
@@ -145,6 +147,43 @@ hello-world-7dc74ff97c-hzght   1/1     Running   0          7m29s   10.4.0.5   g
 hello-world-7dc74ff97c-rzrgz   1/1     Running   0          7m30s   10.4.0.4   gke-cluster-1-default-pool-2cacae53-f5kg   <none>           <none>
 ```
 
+- You can get more details by output-ing the resource in yaml format
+```bash
+$ kubectl get service
+NAME         TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+kubernetes   ClusterIP      10.8.0.1     <none>        443/TCP          33m
+my-service   LoadBalancer   10.8.7.223   34.71.6.149   8080:32136/TCP   14m
+
+$ kubectl get service my-service -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-04-13T13:40:36Z"
+  labels:
+    app.kubernetes.io/name: load-balancer-example
+  name: my-service
+  namespace: default
+  resourceVersion: "4763"
+  selfLink: /api/v1/namespaces/default/services/my-service
+  uid: 5af8c7e6-7d8c-11ea-b1b6-42010a800fcd
+spec:
+  clusterIP: 10.8.7.223
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 32136
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: load-balancer-example
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.71.6.149
+```
+
 - Use the external IP address (LoadBalancer Ingress) to access the Hello World application:
 ```bash
 $ curl -v http://34.71.6.149:8080/     
@@ -169,6 +208,7 @@ Hello Kubernetes!* Closing connection 0
 - Cleaning up
 ```bash
 $ kubectl delete services my-service
-
+service "my-service" deleted
 $ kubectl delete deployment hello-world
+deployment.extensions "hello-world" deleted
 ```
