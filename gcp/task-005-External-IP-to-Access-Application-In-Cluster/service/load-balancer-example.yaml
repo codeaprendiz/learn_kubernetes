@@ -1,5 +1,3 @@
-service/load-balancer-example.yaml 
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
