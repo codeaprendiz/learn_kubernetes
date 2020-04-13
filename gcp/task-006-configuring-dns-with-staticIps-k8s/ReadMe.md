@@ -59,7 +59,54 @@ status: RESERVED
 - Create the service
 
 ```bash
-
+$ kubectl apply -f helloweb-service.yaml
+service/helloweb created
 ```
 
+- To see the reserved IP address associated with the load balancer:
+  
+```bash
+$ kubectl get service
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+helloweb     LoadBalancer   10.127.11.151   <pending>     80:30354/TCP   36s
+kubernetes   ClusterIP      10.127.0.1      <none>        443/TCP        73m
 
+$ kubectl get service
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
+helloweb     LoadBalancer   10.127.11.151   34.67.51.160   80:30354/TCP   99s
+kubernetes   ClusterIP      10.127.0.1      <none>         443/TCP        74m
+```
+
+### Step 3: 
+
+Visit your reserved static IP address
+
+```bash
+$ curl http://34.67.51.160           
+Hello, world!
+Version: 1.0.0
+Hostname: helloweb-7f7f7474fc-ghncd
+```
+
+### Step 4:
+
+Configure your domain name records
+```bash
+$ nslookup testservicek8s.gotdns.ch                       
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+Name:   testservicek8s.gotdns.ch
+Address: 34.67.51.160
+```
+
+### Step 5:
+Visit the domain
+
+```bash
+$ curl http://testservicek8s.gotdns.ch                       
+Hello, world!
+Version: 1.0.0
+Hostname: helloweb-7f7f7474fc-ghncd
+```
