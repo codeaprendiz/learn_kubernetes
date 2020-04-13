@@ -13,7 +13,7 @@ This tutorial demonstrates the following steps:
 GKE Cluster created `us-central1-c	`
 
 
-![](.ReadMe_images/GKE cluster created.png)
+![](.ReadMe_images/GKE_cluster_created.png)
 
 ## Step 1: 
 

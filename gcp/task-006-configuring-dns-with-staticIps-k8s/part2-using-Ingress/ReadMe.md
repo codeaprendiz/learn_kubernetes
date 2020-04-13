@@ -12,7 +12,7 @@ This tutorial demonstrates the following steps:
 ## Step 0:
 GKE Cluster created `us-central1-c	`
 
-![](../part1-using-Service/.ReadMe_images/GKE cluster created.png)
+![](../part1-using-Service/.ReadMe_images/GKE_cluster_created.png)
 
 ## Step 1: 
 
