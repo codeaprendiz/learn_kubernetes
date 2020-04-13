@@ -27,34 +27,41 @@ deployment.apps/helloweb created
 
 Expose your application
 
-### Use a Service
-- Use a Service, which creates a TCP Network Load Balancer that works with regional IP addresses.
+### Using an Ingress
+- If you choose to expose your application using an Ingress, 
+which creates an HTTP(S) Load Balancer, you must reserve a global static IP address. Regional IP addresses do not work with Ingress.
 
-- To use a Service, create a static IP address named helloweb-ip in the region us-central1:
+- To create a global static IP address named helloweb-ip:
+  
 
 ```bash
-$ gcloud compute addresses create helloweb-ip --region us-central1
-Created [https://www.googleapis.com/compute/v1/projects/gcloud-262311/regions/us-central1/addresses/helloweb-ip].
+$ gcloud compute addresses create helloweb-ip --global
+Created [https://www.googleapis.com/compute/v1/projects/gcloud-262311/global/addresses/helloweb-ip].
 ```
   
 - To find the static IP address you created, run the following command:
  
 ```bash
-$ gcloud compute addresses describe helloweb-ip --region us-central1
-address: 34.67.51.160
+$ gcloud compute addresses describe helloweb-ip --global
+address: 35.190.35.174
 addressType: EXTERNAL
-creationTimestamp: '2020-04-13T15:17:53.083-07:00'
+creationTimestamp: '2020-04-13T15:52:30.054-07:00'
 description: ''
-id: '1347105937512029182'
+id: '4058631783476450241'
+ipVersion: IPV4
 kind: compute#address
 name: helloweb-ip
 networkTier: PREMIUM
-region: https://www.googleapis.com/compute/v1/projects/gcloud-262311/regions/us-central1
-selfLink: https://www.googleapis.com/compute/v1/projects/gcloud-262311/regions/us-central1/addresses/helloweb-ip
+selfLink: https://www.googleapis.com/compute/v1/projects/gcloud-262311/global/addresses/helloweb-ip
 status: RESERVED
 ```
 
-- Use the above static IP  to create a manifest file named `helloweb-service.yaml` describing a Service
+- To expose a web application on a static IP using Ingress, you need to deploy two resources:
+    - A Service with type:NodePort
+    - An Ingress configured with the service name and static IP annotation
+
+- Use the above static IP to create a manifest file named `helloweb-ingress.yaml` describing these two resources:
+  
 
 - Create the service
 
