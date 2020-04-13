@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`testacme.gotdns.ch`) && PathPrefix(`/notls`)
+    - match: Host(`testacmek8s.gotdns.ch`) && PathPrefix(`/notls`)
       kind: Rule
       services:
         - name: whoami
@@ -23,7 +23,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`testacme.gotdns.ch`) && PathPrefix(`/tls`)
+    - match: Host(`testacmek8s.gotdns.ch`) && PathPrefix(`/tls`)
       kind: Rule
       services:
         - name: whoami
