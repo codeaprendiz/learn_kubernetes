@@ -11,6 +11,7 @@
 - [task-003-elastic-search]()
 - [task-004-traefik]()
 - [external IP to access Application In Cluster](gcp/task-005-External-IP-to-Access-Application-In-Cluster)
+- [configuring dns with static IPs k8s](gcp/task-006-configuring-dns-with-staticIps-k8s)
     - [using-Service](gcp/task-006-configuring-dns-with-staticIps-k8s/part1-using-Service)
     - [using Ingress](gcp/task-006-configuring-dns-with-staticIps-k8s/part2-using-Ingress)
     
