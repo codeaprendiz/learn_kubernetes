@@ -1,0 +1,31 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-whoami
+  namespace: default
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+  - match: PathPrefix(`/whoami-app-api`)
+    kind: Rule
+    services:
+    - name: whoami
+      port: 80
+    middlewares:
+      - name: custom
+
+
+
+---
+
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: custom
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 10.17.0.0/16
