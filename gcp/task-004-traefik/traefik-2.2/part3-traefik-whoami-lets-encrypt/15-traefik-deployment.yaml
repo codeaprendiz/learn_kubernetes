@@ -35,8 +35,6 @@ spec:
 #            - --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
             #- --log.level=DEBUG
             - --api.insecure=true
-            - --providers.docker=true
-            - --providers.docker.exposedbydefault=false
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
             - --certificatesresolvers.myresolver.acme.httpchallenge=true
