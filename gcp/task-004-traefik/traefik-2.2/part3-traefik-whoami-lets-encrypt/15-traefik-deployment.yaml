@@ -17,10 +17,6 @@ spec:
         app: traefik
     spec:
       serviceAccountName: traefik-ingress-controller
-      volumes:
-        - name: config
-          configMap:
-            name: traefik-config-map
       containers:
         - name: traefik
           image: traefik:v2.1
