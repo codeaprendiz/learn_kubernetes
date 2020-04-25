@@ -16,7 +16,8 @@ data:
       [entryPoints.websecure]
         address = ":443"
     [log]
-      level = "PANIC"
+      level = "DEBUG"
+    [accessLog]
     [api]
       insecure = true
       dashboard = true
