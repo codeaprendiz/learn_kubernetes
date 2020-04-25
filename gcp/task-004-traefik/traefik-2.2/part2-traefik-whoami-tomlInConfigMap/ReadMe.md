@@ -11,31 +11,19 @@ kubectl apply -f .
 - Get the public IP of Treafik-Service
 ```bash
 $ kubectl get service
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                                     AGE
-kubernetes   ClusterIP      10.109.0.1      <none>          443/TCP                                     31m
-traefik      LoadBalancer   10.109.10.37    35.188.102.17   80:30541/TCP,443:32703/TCP,8080:31141/TCP   84s
-whoami       ClusterIP      10.109.10.217   <none>          80/TCP                                      84s
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)                                     AGE
+kubernetes   ClusterIP      10.109.0.1      <none>         443/TCP                                     179m
+traefik      LoadBalancer   10.109.4.20     34.66.233.93   80:30521/TCP,443:32062/TCP,8080:30299/TCP   2m26s
+whoami       ClusterIP      10.109.12.195   <none>         80/TCP                                      2m25s                      84s
 ```
 
 
 
-- Dashboard
+- Features enabled
+
+![](.ReadMe_images/features-enabled-in-toml-inside-configMap.png)
+
+
+- whoami
     
-![](.ReadMe_images/traefik-homepage-part1.png)
-
-![](.ReadMe_images/traefik-homepage-part2.png)
-
-
-- HTTP Routers
-![](.ReadMe_images/http-routers.png)
-
-- HTTP Services
-![](.ReadMe_images/http-services.png)
-
-- HTTP Middlewares
-![](.ReadMe_images/http-middlewares.png)
-
-
-- Accessing whoami service
-
 ![](.ReadMe_images/whoami-service.png)
