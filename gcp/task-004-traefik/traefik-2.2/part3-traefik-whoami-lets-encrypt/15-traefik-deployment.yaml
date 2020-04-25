@@ -28,8 +28,8 @@ spec:
             - --api
             - --api.insecure
             - --accesslog
-            - --entrypoints.web.Address=:80
-            - --entrypoints.websecure.Address=:443
+            - --entrypoints.web.address=:80
+            - --entrypoints.websecure.address=:443
             - --providers.kubernetescrd
             - --certificatesresolvers.default.acme.tlschallenge
             - --certificatesresolvers.default.acme.email=emailexample@gmail.com
