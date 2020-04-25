@@ -12,6 +12,7 @@
 - [task-004-traefik](gcp/task-004-traefik/traefik-2.2/part1-traefik-whoami/)
     - [part1-traefik-whoami](gcp/task-004-traefik/traefik-2.2/part1-traefik-whoami/)
     - [part2-traefik-whoami-tomlInConfigMap](gcp/task-004-traefik/traefik-2.2/part2-traefik-whoami-tomlInConfigMap/)
+    - [part3-traefik-whoami-lets-encrypt]()
 - [external IP to access Application In Cluster](gcp/task-005-External-IP-to-Access-Application-In-Cluster)
 - [configuring dns with static IPs k8s](gcp/task-006-configuring-dns-with-staticIps-k8s)
     - [using-Service](gcp/task-006-configuring-dns-with-staticIps-k8s/part1-using-Service)

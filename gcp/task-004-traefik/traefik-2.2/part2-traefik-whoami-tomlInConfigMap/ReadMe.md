@@ -1,4 +1,4 @@
-## To deploy traefik on GKE with whoami service
+## To deploy traefik on GKE with whoami service when toml file is passed as configMap mounted to deployment of Traefik
 
 
 - Run the following command (you may run it again if you get error for the first time as some
