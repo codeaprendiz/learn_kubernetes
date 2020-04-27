@@ -22,6 +22,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
+    - web
   routes:
     - match: Host(`k8sacmetest.gotdns.ch`) && PathPrefix(`/tls`)
       kind: Rule
