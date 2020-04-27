@@ -24,7 +24,7 @@ service/whoami created
 $ kubectl get service
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)                                     AGE
 kubernetes   ClusterIP      10.109.0.1      <none>         443/TCP                                     6h16m
-traefik      LoadBalancer   10.109.15.230   34.69.16.102   80:32318/TCP,443:32634/TCP,8080:32741/TCP   70s
+traefik      LoadBalancer   35.238.72.172   34.69.16.102   80:32318/TCP,443:32634/TCP,8080:32741/TCP   70s
 whoami       ClusterIP      10.109.14.91    <none>         80/TCP                                      70s
 ```
 
@@ -37,7 +37,7 @@ Address:        192.168.1.1#53
 
 Non-authoritative answer:
 Name:   k8straefiktlstest.gotdns.ch
-Address: 34.69.16.102
+Address: 35.238.72.172
 ```
 
 - Create the resource ingress-route
