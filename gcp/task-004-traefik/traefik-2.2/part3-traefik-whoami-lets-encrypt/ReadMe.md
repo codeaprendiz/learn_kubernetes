@@ -31,12 +31,12 @@ whoami       ClusterIP      10.109.14.91    <none>         80/TCP               
 
 - Create a DNS record for this IP
 ```bash
-$ nslookup k8stlsacmetest.gotdns.ch
+$ nslookup k8stestacmetls.gotdns.ch
 Server:         192.168.1.1
 Address:        192.168.1.1#53
 
 Non-authoritative answer:
-Name:   k8stlsacmetest.gotdns.ch
+Name:   k8stestacmetls.gotdns.ch
 Address: 34.69.16.102
 ```
 
@@ -52,7 +52,7 @@ ingressroute.traefik.containo.us/ingressroutetls created
 time="2020-04-25T20:10:31Z" level=info msg="Configuration loaded from flags."
 time="2020-04-25T20:10:32Z" level=error msg="subset not found for default/whoami" providerName=kubernetescrd ingress=simpleingressroute namespace=default
 time="2020-04-25T20:10:32Z" level=error msg="subset not found for default/whoami" providerName=kubernetescrd ingress=ingressroutetls namespace=default
-time="2020-04-25T20:10:52Z" level=error msg="Unable to obtain ACME certificate for domains \"k8stlsacmetest.gotdns.ch\": unable to generate a certificate for the domains [k8stlsacmetest.gotdns.ch]: acme: Error -> One or more domains had a problem:\n[k8stlsacmetest.gotdns.ch] acme: error: 400 :: urn:ietf:params:acme:error:connection :: Timeout during connect (likely firewall problem), url: \n" routerName=default-ingressroutetls-08dd2bb9eecaa72a6606@kubernetescrd rule="Host(`k8stlsacmetest.gotdns.ch`) && PathPrefix(`/tls`)" providerName=default.acme
+time="2020-04-25T20:10:52Z" level=error msg="Unable to obtain ACME certificate for domains \"k8stestacmetls.gotdns.ch\": unable to generate a certificate for the domains [k8stestacmetls.gotdns.ch]: acme: Error -> One or more domains had a problem:\n[k8stestacmetls.gotdns.ch] acme: error: 400 :: urn:ietf:params:acme:error:connection :: Timeout during connect (likely firewall problem), url: \n" routerName=default-ingressroutetls-08dd2bb9eecaa72a6606@kubernetescrd rule="Host(`k8stestacmetls.gotdns.ch`) && PathPrefix(`/tls`)" providerName=default.acme
 ```
 
 
