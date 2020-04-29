@@ -38,7 +38,7 @@ spec:
 
           ## Set DD_SITE to 'datadoghq.eu' to send your Agent data to the Datadog EU site
           - name: DD_SITE
-            value: 'datadoghq.eu'
+            value: 'datadoghq.com'
 
             #######################
             ## Metric collection ##
