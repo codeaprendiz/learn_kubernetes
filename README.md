@@ -17,6 +17,7 @@
 - [configuring dns with static IPs k8s](gcp/task-006-configuring-dns-with-staticIps-k8s)
     - [using-Service](gcp/task-006-configuring-dns-with-staticIps-k8s/part1-using-Service)
     - [using Ingress](gcp/task-006-configuring-dns-with-staticIps-k8s/part2-using-Ingress)
+- [datadog](gcp/task-007-datadog)
     
    
 
