@@ -1,6 +1,13 @@
 ## To deploy traefik on GKE with whoami service and get certificate using lets encrypt
 
 
+- Ensure that the following line is uncommented in traefik-deployment resource. Right 
+now you are using staging env to obtain certificates. On main let's encrypt 
+you have only 5 requests per hour before you will be banned and it is not recommended to use production env for testing.
+```yaml
+            - --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+```
+
 - Run the following command and create all the resource objects except ingress-route
 
 ```bash
