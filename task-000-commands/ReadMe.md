@@ -120,52 +120,10 @@ kubectl logs -f -lapp=nginx --all-containers=true
 ```
 
 ## Test
-test
 
-test
 
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
-test
-
+Force deleting
+https://stackoverflow.com/questions/35453792/pods-stuck-in-terminating-status
 
 
 
