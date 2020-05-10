@@ -18,6 +18,7 @@
     - [using-Service](gcp/task-006-configuring-dns-with-staticIps-k8s/part1-using-Service)
     - [using Ingress](gcp/task-006-configuring-dns-with-staticIps-k8s/part2-using-Ingress)
 - [datadog](gcp/task-007-datadog)
+- [task-008-PodSecurityPolicy-TO-BE-CONTINUED](gcp/task-008-PodSecurityPolicy)
     
    
 
