@@ -150,13 +150,4 @@ $ kubectl-user delete pod pause
 pod "pause" deleted
 ```
 
-- Run another pod, Let’s try that again, slightly differently:
-```bash
-kubectl-user run pause --image=k8s.gcr.io/pause
-deployment "pause" created
 
-kubectl-user get pods
-No resources found.
-
-TO-BE-CONTINUED
-```
