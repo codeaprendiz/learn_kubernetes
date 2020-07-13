@@ -26,15 +26,7 @@ spec:
             secretName: start-domain-com-ssl
       containers:
         - name: traefik
-          image: traefik:v2.1
-          args:
-            - --accesslog=true
-            - --api
-            - --api.insecure
-            - --entrypoints.web.address=:80
-            - --entrypoints.websecure.address=:443
-            - --providers.kubernetescrd
-            - --configfile=/config/traefik.toml
+          image: traefik:v2.2.1
           ports:
             - name: web
               containerPort: 80

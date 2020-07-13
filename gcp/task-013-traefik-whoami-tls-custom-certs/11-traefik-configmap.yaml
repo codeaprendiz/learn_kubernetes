@@ -13,6 +13,12 @@ data:
     [entryPoints]
       [entryPoints.web]
         address = ":80"
+        [entryPoints.web.http]
+          [entryPoints.web.http.redirections]
+            [entryPoints.web.http.redirections.entryPoint]
+              to = "websecure"
+              scheme = "https"
+              permanent = true
       [entryPoints.websecure]
         address = ":443"
     [log]
@@ -23,12 +29,15 @@ data:
       dashboard = true
       debug = true
     [providers]
+      [providers.file]
+        directory = "/etc/traefik"
+        watch = true
       [providers.kubernetesCRD]
 
 
     [[tls.certificates]]
-           keyFile = "/var/ssl/start-domain-com-ssl/star_domain.com.key"
-           certFile = "/var/ssl/start-domain-com-ssl/star_domain_com.chained.crt"
+       keyFile = "/var/ssl/start-domain-com-ssl/star_domain.com.key"
+       certFile = "/var/ssl/start-domain-com-ssl/star_domain_com.chained.crt"
 
     [tls.options]
         [tls.options.default]
@@ -50,7 +59,7 @@ data:
           minVersion = "VersionTLS13"
 
     [tls.stores]
-        [tls.stores.default]
-          [tls.stores.default.defaultCertificate]
-            keyFile = "/var/ssl/start-domain-com-ssl/star_domain.com.key"
-            certFile = "/var/ssl/start-domain-com-ssl/star_domain_com.chained.crt"
+      [tls.stores.default]
+        [tls.stores.default.defaultCertificate]
+          keyFile = "/var/ssl/start-domain-com-ssl/star_domain.com.key"
+          certFile = "/var/ssl/start-domain-com-ssl/star_domain_com.chained.crt"

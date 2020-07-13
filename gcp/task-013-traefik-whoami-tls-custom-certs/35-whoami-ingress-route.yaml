@@ -4,6 +4,7 @@ metadata:
   name: whoami-whoami
   namespace: default
 spec:
+  tls: {}
   entryPoints:
     - web
     - websecure
