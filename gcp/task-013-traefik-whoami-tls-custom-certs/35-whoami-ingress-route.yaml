@@ -4,6 +4,10 @@ metadata:
   name: whoami-whoami
   namespace: default
 spec:
+  tls:
+    certificates:
+      - certFile: /var/ssl/start-domain-com-ssl/star_domain_com.chained.crt
+        keyFile: /var/ssl/start-domain-com-ssl/star_domain.com.key
   entryPoints:
     - web
     - websecure
