@@ -23,9 +23,6 @@ data:
       dashboard = true
       debug = true
     [providers]
-      [providers.file]
-        directory = "/var/tf"
-        watch = true
       [providers.kubernetesCRD]
 
 
