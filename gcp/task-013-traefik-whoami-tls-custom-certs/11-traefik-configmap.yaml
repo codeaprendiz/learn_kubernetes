@@ -29,6 +29,9 @@ data:
       dashboard = true
       debug = true
     [providers]
+      [providers.file]
+        directory = "/etc/traefik"
+        watch = true
       [providers.kubernetesCRD]
 
 
