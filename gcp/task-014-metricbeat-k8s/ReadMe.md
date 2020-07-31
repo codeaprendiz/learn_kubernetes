@@ -1,7 +1,15 @@
 ### To start metricbeat in kubernetes cluster and ship the kubernetes metrics to elastic search which can be viewed by kibana
 
-#### You can install elastic-search docker and kibana docker by visiting [elastic-search-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/elastic-search-cluster-docker) and 
-[kibana-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/kibana-docker)
+
+#### Pre-requisites
+
+- elastic-search-docker: 
+    - You can install elastic-search docker and kibana docker by visiting [elastic-search-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/elastic-search-cluster-docker) and 
+- kibana-docker: 
+    - You can install kibana docker by using this link [kibana-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/kibana-docker)
+- kube-state-metrics:
+    - You need to install kube-state-metrics as this will be used by metric beat to featch additional metrics. You can 
+      do so by using this task-link [task-015-kube-state-metrics](../task-015-kube-state-metrics)
 
 - Docs referred
 
