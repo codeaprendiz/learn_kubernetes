@@ -4,7 +4,7 @@
 #### Pre-requisites
 
 - elastic-search-docker: 
-    - You can install elastic-search docker and kibana docker by visiting [elastic-search-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/elastic-search-cluster-docker) and 
+    - You can install elastic-search docker by visiting [elastic-search-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/elastic-search-cluster-docker) and 
 - kibana-docker: 
     - You can install kibana docker by using this link [kibana-docker](https://github.com/codeaprendiz/ansible-kitchen/tree/master/playbooks/roles/kibana-docker)
 - kube-state-metrics:
