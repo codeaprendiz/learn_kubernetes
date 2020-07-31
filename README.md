@@ -27,7 +27,7 @@
 
 ### Monitoring
 - [task-011-configuring datadog](gcp/task-011-configuring-datadog)
-- [task-014-metricbeat-k8s](gcp/task-014-metricbeat-k8s)
+- [task-014-metricbeat-k8s](gcp/task-014-metricbeat)
 - [task-015-kube-state-metrics](gcp/task-015-kube-state-metrics)
 
 
