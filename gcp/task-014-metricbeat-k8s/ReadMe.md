@@ -9,8 +9,11 @@
 
     - [metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-reference-yml.html)
 
+- Apply the k8s resources 
+```bash
+$ kubectl apply -f .
 
-
+```
 
 - Metricbeat logs after successful connection to elastic search
 
@@ -18,3 +21,28 @@
 2020-07-31T10:18:29.404Z        INFO    [publisher_pipeline_output]     pipeline/output.go:144  Connecting to backoff(elasticsearch(http://35.226.68.74:9200))
 2020-07-31T10:18:34.475Z        INFO    [publisher_pipeline_output]     pipeline/output.go:152  Connection to backoff(elasticsearch(http://35.226.68.74:9200)) established
 ```
+
+- Now you can check you infrastructure in kibana as showing in the following screenshot (Observability - metrics)
+
+    - Infra VMs
+
+        ![](.ReadMe_images/Infra-vms.png)
+
+    - Infra Pods
+    
+        ![](.ReadMe_images/Infra-Pods.png)
+        
+    - Pod Metrics
+    
+        ![](.ReadMe_images/Pod-metrics.png)
+        
+    - Pre Built Imported Dashboard
+    
+        ![](.ReadMe_images/K8s-dashboard.png)
+        
+        
+
+    
+    
+
+
