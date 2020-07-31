@@ -25,8 +25,10 @@
 - [task-009-configuring dns with static IPs k8 using-Service](gcp/task-009-configuring-dns-with-static-IPs-k8-using-Service)
 - [task-010-configuring dns with static IPs k8 using Ingress](gcp/task-010-configuring-dns-with-static-IPs-k8-using-Ingress)
 
-### Datadog
+### Monitoring
 - [task-011-configuring datadog](gcp/task-011-configuring-datadog)
+- [task-014-metricbeat-k8s](gcp/task-014-metricbeat-k8s)
+- [task-015-kube-state-metrics](gcp/task-015-kube-state-metrics)
 
 
 ### Pod Security
