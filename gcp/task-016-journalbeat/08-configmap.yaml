@@ -50,6 +50,6 @@ data:
     #  compression_level: 7
 
     output.elasticsearch:
-      hosts: ["https://34.68.27.112:9200"]
+      hosts: ["http://34.68.27.112:9200"]
 
 
