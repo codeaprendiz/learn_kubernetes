@@ -48,6 +48,19 @@ $ kubectl apply -f .
     
         ![](.ReadMe_images/K8s-dashboard.png)
         
+    - Pre Built System - Overview Dashboard
+    
+        ![](.ReadMe_images/system-overview.png)
+        
+    - Pre Built Host Overview Dashboard
+    
+        ![](.ReadMe_images/host-overview.png)
+        
+        ![](.ReadMe_images/host-overview-2.png)
+        
+    - Pre Built Containers Dashboard
+     
+        
         
 
     
