@@ -59,6 +59,8 @@ $ kubectl apply -f .
         ![](.ReadMe_images/host-overview-2.png)
         
     - Pre Built Containers Dashboard
+    
+        ![](.ReadMe_images/containers-overview.png)
      
         
         
