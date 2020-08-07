@@ -30,6 +30,9 @@
 - [task-014-metricbeat-k8s](gcp/task-014-metricbeat)
 - [task-015-kube-state-metrics](gcp/task-015-kube-state-metrics)
 
+### Logging
+- [task-016-journalbeat](gcp/task-016-journalbeat)
+
 
 ### Pod Security
 - [task-012-PodSecurityPolicy](gcp/task-012-PodSecurityPolicy)
