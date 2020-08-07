@@ -15,6 +15,8 @@
     
     - [journalbeat](https://www.elastic.co/guide/en/beats/journalbeat/master/index.html)
     
+  
+- Change the IP of elastic-search in `08-configmap.yaml` (or `12-daemonset.yaml`) where you have set with the public IP you get.
     
 - Apply the k8s resources by following command
 

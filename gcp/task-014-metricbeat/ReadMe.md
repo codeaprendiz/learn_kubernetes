@@ -17,6 +17,10 @@
 
     - [metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-reference-yml.html)
 
+- Change the IPs of elastic-search `20-daemonset.yaml` and `24-deployment.yaml` with the public IP which you get.
+
+- Change the IP of kibana in `16-configmap-metricbeat-daemonset.yaml` with the public IP of kibana which you get.
+
 - Apply the k8s resources 
 ```bash
 $ kubectl apply -f .
