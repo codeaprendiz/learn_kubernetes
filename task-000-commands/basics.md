@@ -13,7 +13,59 @@
 
 ### ETCD Cluster
 - A database that stores information in key value format 
-
+- It is a simple, reliable, key-value store that is simple, secure and fast.
+- You can download the binary of etcd and run it using `./etcd`. Its starts service on port 2379 by default.
+  You can attach clients to the service to store and retrieve the data.
+- The default client that comes with etcd is etcd control client  `./etcdctl set key1 value1`. And we can retrieve 
+  the data using `./etcdctl get key1`
+- The ETCD datastore stores information about the cluster like
+    - Nodes, Pods, Configs, Secrets, Accounts, Roles, Bindings
+- Every change we make to the cluster are updated in the etcd server. 
+- Installing ETCD service
+    - Manual : Install cluster from scratch
+        - Download the binary and install in the master node yourself.
+        - `--advertise-client-urls https://${{INTERNAL_IP}}:2379`: The address on which etcd listens. This should be configured in the `kube-api` server
+          when it tries to contact the `etcd` service.
+    - Install using `kube-adm`      
+        - This deploys the `etcd` server for you as a pod in the `kube-system` namespace
+- Kubernetes stores data in specific directory structure. The `root` directory is `/registry` and under that
+  we have variour kubernetes contructs like minions, pods, replicasets, roles etc
+- In highly available environment you will have multiple master nodes in a cluster and then you would also have 
+  multiple etcd instances spread across the master nodes. In that case make sure that the etcd instances know 
+  about each other by setting the right parameter in the `etcd` service configuration.
+    - The `--initial-cluster controller-0=https://${CONTROLLER0_IP}:2380,controller-1=https://$}CONTROLLER1_IP}:2380 `    
+- ETCDCTL is the CLI tool used to interact with ETCD.
+  
+    - ETCDCTL can interact with ETCD Server using 2 API versions - Version 2 and Version 3.  By default its set to use Version 2. Each version has different sets of commands.
+      For example ETCDCTL version 2 supports the following commands:
+    ```bash
+    etcdctl backup
+    etcdctl cluster-health
+    etcdctl mk
+    etcdctl mkdir
+    etcdctl set
+    ```
+    - Whereas the commands are different in version 3
+    ```bash
+    etcdctl snapshot save 
+    etcdctl endpoint health
+    etcdctl get
+    etcdctl put
+    ```
+    - To set the right version of API set the environment variable ETCDCTL_API command
+    ```bash
+    export ETCDCTL_API=3
+    ```
+    - Apart from that, you must also specify path to certificate files so that ETCDCTL can authenticate to the ETCD API Server. The certificate files are available in the etcd-master at the following path
+    ```bash
+    --cacert /etc/kubernetes/pki/etcd/ca.crt     
+    --cert /etc/kubernetes/pki/etcd/server.crt     
+    --key /etc/kubernetes/pki/etcd/server.key
+    ```
+  - To get all the keys stored by kubernetes
+    ```bash
+    kubectl exec etcd-master -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / --prefix --keys-only --limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  --key /etc/kubernetes/pki/etcd/server.key" 
+    ```
 
 ### kube-scheduler
 - Identifies the right node to place the container on

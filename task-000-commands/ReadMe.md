@@ -7,6 +7,7 @@
 - [delete](#delete)
 - [describe](#describe)
     - [pod](#pod)
+- [exec](#exec)    
 - [get](#get)
     - [namespace](#namespace)
     - [pod](#pod)
@@ -64,6 +65,13 @@ Namespace:      ingress
 .
 .
 Events:          <none>
+```
+
+## exec
+[exec](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec)
+- To list all the keys stored by kubernetes
+```bash
+# kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
 ```
 
 ## get
