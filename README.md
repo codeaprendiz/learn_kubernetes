@@ -1,6 +1,7 @@
 # kubernetes-kitchen
 
 - [commands](task-000-commands/ReadMe.md)
+- [basics](task-000-commands/basics.md)
 
 ## gcp
 
