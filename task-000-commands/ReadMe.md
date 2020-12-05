@@ -71,7 +71,7 @@ Events:          <none>
 [exec](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec)
 - To list all the keys stored by kubernetes
 ```bash
-# kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
+kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
 ```
 
 ## get
