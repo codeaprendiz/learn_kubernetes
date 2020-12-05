@@ -102,4 +102,3 @@
 - ensures that the necessary rules are in place on the worker nodes to allow the
   containers running on them to reach each other
   
-![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-architecture.png)
