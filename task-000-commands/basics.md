@@ -4,6 +4,8 @@
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
 - that host applications in the form of containers
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-architecture.png)
  
 ### Worker Nodes
 - Host Application as containers
@@ -70,6 +72,8 @@
 ### kube-scheduler
 - Identifies the right node to place the container on
 - based on container's resource requirements, worker node capacity etc
+- The scheduler continously monitors the api-server. When ever there is a new node created, it realizes and assigns it to appropriate node and communicates back to the 
+  `kube-api` server. 
 
 ### Node Controller
 - Takes care of nodes, responsible for onboarding new nodes to the cluster, handlying
@@ -84,6 +88,15 @@
 - orchestrating all operations in the cluster
 - it exposes the kubernetes api which is used by external users to perform
   management operations on the cluster
+- When you run a kubectl (kube control) command the kube-control utility reaches to the kube-api server. The kube-api server then authenticates and validates the
+ request. It then retrieves the data from the etcd cluster and then responds back with the required information.
+- We don't need to use the kube-control command line always, instead we can also invoke the api's directly by sending HTTP requests.
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/flow-user-kube-api-server-etcd-cluster-and-back.png)
+```bash
+kubectl get nodes
+curl -X POST /api/v1/namespaces/defaults/pods/...[other]
+```
   
 ### Container-Runtime Engine
 - We need a software that can run the containers i.e. container runtime engine (eg docker).
