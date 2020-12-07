@@ -91,12 +91,31 @@
 - When you run a kubectl (kube control) command the kube-control utility reaches to the kube-api server. The kube-api server then authenticates and validates the
  request. It then retrieves the data from the etcd cluster and then responds back with the required information.
 - We don't need to use the kube-control command line always, instead we can also invoke the api's directly by sending HTTP requests.
+- kube-api server is available as a binary in kubernetes release page. If not already present on the master node then you  need
+  to download and configure it on the master node.
 
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/flow-user-kube-api-server-etcd-cluster-and-back.png)
 ```bash
 kubectl get nodes
 curl -X POST /api/v1/namespaces/defaults/pods/...[other]
 ```
+- The kube-api server is responsible for 
+  - Authenticate User
+  - Validate Request
+  - Retrieve data and Update data on ETCD cluster
+  - Scheduler uses the api server to perform updates in the cluster
+  - Kubelet uses the api server to perform updates in the cluster
+  
+- run time arguments worth knowing
+  - `--etcd-servers=https://127.0.0.1:2379` - how the kubeapi server connects to the etcd server
+- view kube-api server options in existing cluster
+  - If you deploy the cluster using kubeadm which deploys the `kube-api` server as a pod in the namespace `kube-system`
+        - `kubectl get pods -n kube-system` - Login into this pod and see the options at 
+          - `cat /etc/kubernetes/manifests/kube-apiserver.yaml`
+  - In non kubeadm set you can view the options by following command
+        - `cat /etc/systemd/system/kube-apiserver.service`
+        - You can also search for the kube-apiserver process on the master node and list the corresponding options
+          `ps -aux | grep kube-apiserver`
   
 ### Container-Runtime Engine
 - We need a software that can run the containers i.e. container runtime engine (eg docker).
