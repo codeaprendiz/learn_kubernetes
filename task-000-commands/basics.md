@@ -134,3 +134,28 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
 - ensures that the necessary rules are in place on the worker nodes to allow the
   containers running on them to reach each other
   
+  
+### Kube-controller Manager
+-  Manager various controllers in kubernetes
+- A controller is a process which continuously monitors the state of various components within the system and works towards 
+  bringing the whole system towards the desired functioning state.
+- For Example 
+  - The Node controller is responsible for monitoring the status of the nodes and take the necessary action to keep the application running.
+    It does that through the kube-api server.
+  - The node controller checks the status of the nodes every 5 seconds, in this way the node controller can monitor the status of the nodes.
+  - If it stops receiving heartbeat from a node, the node is marked as unreachable. But it waits for 40s before marking it as 
+    unreachable. After a node is marked as unreachable it waits for 5 minutes for the node to come backup. If it doesn't it removes
+    the pod assigned to that node and provisions them on the healthy ones if the pods are part of the replica set.
+> Node Monitor Period = 5s
+> Node Monitor Grace Period = 40s
+> Pod Eviction Timeout = 5m
+
+```bash
+$ kubectl get nodes          
+NAME       STATUS       ROLES   AGE    VERSION
+worker-1   Ready       <none>   10d    v1.19.4
+worker-2   NotReady    <none>   10d    v1.19.4
+```   
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/Controllers-node-controller.png)
+  
