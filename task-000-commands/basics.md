@@ -147,7 +147,9 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
     unreachable. After a node is marked as unreachable it waits for 5 minutes for the node to come backup. If it doesn't it removes
     the pod assigned to that node and provisions them on the healthy ones if the pods are part of the replica set.
 > Node Monitor Period = 5s
+
 > Node Monitor Grace Period = 40s
+
 > Pod Eviction Timeout = 5m
 
 ```bash
