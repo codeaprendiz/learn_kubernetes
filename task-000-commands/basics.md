@@ -140,7 +140,7 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
 - A controller is a process which continuously monitors the state of various components within the system and works towards 
   bringing the whole system towards the desired functioning state.
 - For Example 
-  - The Node controller is responsible for monitoring the status of the nodes and take the necessary action to keep the application running.
+  - The *Node controller* is responsible for monitoring the status of the nodes and take the necessary action to keep the application running.
     It does that through the kube-api server.
   - The node controller checks the status of the nodes every 5 seconds, in this way the node controller can monitor the status of the nodes.
   - If it stops receiving heartbeat from a node, the node is marked as unreachable. But it waits for 40s before marking it as 
@@ -159,3 +159,38 @@ worker-2   NotReady    <none>   10d    v1.19.4
 
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/Controllers-node-controller.png)
   
+  - The *Replication Controller* is responsible to monitoring the status of the replicasets and ensuring that the desired 
+    number of pods are always available within the set. If a pod dies it creates another one.
+    
+  - In the same way there are many such controllers within kubernetes like deployment-controller,
+    namespace-controller, job-controller etc
+- All these controllers are packaged in a single process know as `Kube-Controller-Manager`. 
+- How to install the kube-controller-manager
+  - Download the `kube-controller-manager` binary from the kubernetes release page.
+    `wget https://../kube-controller-manager`
+  - Extract it and run it as a service.
+  - Options worth noting down
+  ```bash
+    --node-monitor-period=5s
+    --node-monitor-grace-period=40s
+    --pod-eviction-timeout=5m0s
+    --controllers stringSlice  Default:[*]
+  ``` 
+  - The last option you saw is to enable which all controllers you want to enable. By default
+    all of them are enabled. 
+- So how do you view the kube-controller-manager's server options
+  - If installed using `kubeadm`. The kubeadm deploys the kube-controller-manager as a pod in the 
+    namespace kube-system on the master node. You can see these options indside the pod at the following
+    location
+    ```bash
+    cat /etc/kubernetes/manifests/kube-controller-manager.yaml
+    ```   
+  - In non kubeadm set up you can view those options at the following location
+    ```bash
+    cat /etc/systemd/system/kube-controller-manager.service
+    ```   
+  - You can also see the running process and the effective options by listing the processes on the master
+    node and searching for the kube-controller-manager
+    ```bash
+    ps -aux | grep kube-controller-manager
+    ```
