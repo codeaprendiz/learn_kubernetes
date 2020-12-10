@@ -74,6 +74,28 @@
 - based on container's resource requirements, worker node capacity etc
 - The scheduler continously monitors the api-server. When ever there is a new node created, it realizes and assigns it to appropriate node and communicates back to the 
   `kube-api` server. 
+- It is only responsible for deciding which pods goes on which node. It does actually places the pods on the nodes.
+  - It first filters the nodes which cannot accomodate the request
+  - Then it runs functions which decide which node will be the best fit for the placement of the pod on the node. It ranks the nodes based on this.
+  - You can write your own scheduler as well.
+- How to install the kube-scheduler
+  - Download the kube-scheduler binary from the kubernetes release page and install it as service.
+  ```bash
+     wget https://../kube-scheduler
+  ```
+ - Where you can view the kube-scheduler server options
+   - If you set it up using the kube-adm tool which  deploys the kube-scheduler as a pod in the kube-system namespace on the master node, you can login into the pod
+     and view the options at the following locations
+     ```bash
+     cat /etc/kubernetes/manifests/kube-scheduler.yaml
+     ```
+   - You can also see the running process by listing the processes running on the master node and then searching for the kube-scheduler process
+   ```bash
+     ps -aux | grep kube-scheduler
+   ```
+     
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kube-scheduler.png)
 
 ### Node Controller
 - Takes care of nodes, responsible for onboarding new nodes to the cluster, handlying
