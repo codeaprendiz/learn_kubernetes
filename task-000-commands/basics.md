@@ -162,12 +162,15 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
   ```bash
   ps -aux | grep kubelet
   ```
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubelet-kube-api-server.png)  
 
   
 ### Kube-proxy service
 - enables the communication between the worker nodes
 - ensures that the necessary rules are in place on the worker nodes to allow the
   containers running on them to reach each other
+- within a kubenetes cluster every pod can reach every other pod
+
   
   
 ### Kube-controller Manager
