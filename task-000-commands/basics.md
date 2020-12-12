@@ -150,6 +150,19 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
   containers as required
 - kube-api server periodically fetches status reports from the kubelet to monitor the 
   status of the nodes on them 
+- The kubelet in the kubernetes worker node registers the node with the kuernetes cluster. When it receives an instruction to load a container or a pod on the node
+  it requests the container runtime engine (like docker) to pull the required image and run an instance and then continues to monitor the state of the pod and containers
+  in it and reports to the kube-api server on timely basis.
+- Install kubelet
+  - Installing using kubeadm (kubeadm does not automatically deploy the kubelet). You can download the binary, install and run it as a service
+  ```bash
+  wget https://../kubelet
+  ```
+  You can view the running process and effective options by listing the process on the worker nodes
+  ```bash
+  ps -aux | grep kubelet
+  ```
+
   
 ### Kube-proxy service
 - enables the communication between the worker nodes
