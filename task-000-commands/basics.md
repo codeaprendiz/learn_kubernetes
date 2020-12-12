@@ -169,8 +169,29 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
 - enables the communication between the worker nodes
 - ensures that the necessary rules are in place on the worker nodes to allow the
   containers running on them to reach each other
-- within a kubenetes cluster every pod can reach every other pod
+- within a kubenetes cluster every pod can reach every other pod. This is accomplished by deploying a pod-networking solution to the cluster.
+  **Pod Network**
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kube-proxy-pod-network.png)    
+  - It is an internal virtual network that expands across all the nodes within the cluster through which all the pods are conntected.
+  - If we have a web-application deployed on one node and a database application deployed on another node. Then the web-application can reach
+    the database application using the IP of the database. But there is not guarante that the IP of the database would remain the same. That is why
+    we expose the database application by using a service.
+  - The service does not join the same POD network because the service is not an actual thing. It does not have a container like PODs so it doesn't have any interface
+    or an actively listening process. It is a virtual component that only lives in kubernetes memory
+- Kube-proxy is a process that run on each node in the kubernetes cluster. Its job is to look for new services and everytime a new service is created it creates appropriate 
+  rule on each node to forward traffic to those services to the backend pods.
+- It creates IP table rules on each node in the cluster to forward traffic heading to the IP of the service.   
+  - In the following case it has created rules [1.2.3.6|1.2.3.5] in each of the nodes saying that traffic trying to reach the IP of the service 1.2.3.6 should
+    be forwarded to 1.2.3.5
 
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kube-proxy.png)
+
+- Installing `kube-proxy`
+  - download the kube-proxy from the kubernetes release page, install it and run it as a service    
+  ```bash
+  wget https://.../kube-proxy
+  ```
+- In kubeadm, the kube-proxy is deployed as a daemonset and therefor on each node in the cluster.
   
   
 ### Kube-controller Manager
