@@ -1,4 +1,16 @@
 
+- [Kubernetes Cluster](#Kubernetes Cluster)
+    - [Worker Nodes](#Worker Nodes)
+    - [ETCD Cluster](#ETCD Cluster)
+    - [kube-scheduler](#kube-scheduler)
+    - [Node Controller](#Node Controller)
+        - [Replication-Controller](#Replication-Controller)
+    - [kube-apiserver](#kube-apiserver)    
+    - [Container-Runtime Engine](#Container-Runtime Engine)
+    - [kubelet](#kubelet)
+    - [Kube-proxy service](#Kube-proxy service)
+    - [Kube-controller Manager](#Kube-controller Manager)
+    - [pod](#pod)
 
 ## Kubernetes Cluster
 - Set of nodes which may be physical or virtual
@@ -101,7 +113,7 @@
 - Takes care of nodes, responsible for onboarding new nodes to the cluster, handlying
   situations when nodes become unavailable or gets destroyed
   
-### Replication- Controller
+### Replication-Controller
 - If desired number of containers are running at any point in time in a replication group.
 
 
