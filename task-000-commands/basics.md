@@ -1,31 +1,31 @@
 
-- [Kubernetes Cluster](#Kubernetes Cluster)
-    - [Worker Nodes](#Worker Nodes)
-    - [ETCD Cluster](#ETCD Cluster)
+- [Kubernetes Cluster](#Kubernetes-Cluster)
+    - [Worker Nodes](#Worker-Nodes)
+    - [ETCD Cluster](#ETCD-Cluster)
     - [kube-scheduler](#kube-scheduler)
-    - [Node Controller](#Node Controller)
+    - [Node Controller](#Node-Controller)
         - [Replication-Controller](#Replication-Controller)
     - [kube-apiserver](#kube-apiserver)    
-    - [Container-Runtime Engine](#Container-Runtime Engine)
+    - [Container-Runtime Engine](#Container-Runtime-Engine)
     - [kubelet](#kubelet)
-    - [Kube-proxy service](#Kube-proxy service)
-    - [Kube-controller Manager](#Kube-controller Manager)
+    - [Kube-proxy service](#Kube-proxy-service)
+    - [Kube-controller Manager](#Kube-controller-Manager)
     - [pod](#pod)
 
-## Kubernetes Cluster
+## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
 - that host applications in the form of containers
 
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-architecture.png)
  
-### Worker Nodes
+### Worker-Nodes
 - Host Application as containers
 
-### Master Node
+### Master-Node
 - Manage, Plan, Schedule, Monitor Nodes
 
-### ETCD Cluster
+### ETCD-Cluster
 - A database that stores information in key value format 
 - It is a simple, reliable, key-value store that is simple, secure and fast.
 - You can download the binary of etcd and run it using `./etcd`. Its starts service on port 2379 by default.
@@ -109,7 +109,7 @@
 
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kube-scheduler.png)
 
-### Node Controller
+### Node-Controller
 - Takes care of nodes, responsible for onboarding new nodes to the cluster, handlying
   situations when nodes become unavailable or gets destroyed
   
@@ -151,7 +151,7 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
         - You can also search for the kube-apiserver process on the master node and list the corresponding options
           `ps -aux | grep kube-apiserver`
   
-### Container-Runtime Engine
+### Container-Runtime-Engine
 - We need a software that can run the containers i.e. container runtime engine (eg docker).
 - We need docker or its equivalent to be installed on all nodes of the cluster including the master nodes
 - kubernetes supports other runtime engines as well like containerd
@@ -177,7 +177,7 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubelet-kube-api-server.png)  
 
   
-### Kube-proxy service
+### Kube-proxy-service
 - enables the communication between the worker nodes
 - ensures that the necessary rules are in place on the worker nodes to allow the
   containers running on them to reach each other
@@ -206,7 +206,7 @@ curl -X POST /api/v1/namespaces/defaults/pods/...[other]
 - In kubeadm, the kube-proxy is deployed as a daemonset and therefor on each node in the cluster.
   
   
-### Kube-controller Manager
+### Kube-controller-Manager
 -  Manager various controllers in kubernetes
 - A controller is a process which continuously monitors the state of various components within the system and works towards 
   bringing the whole system towards the desired functioning state.
