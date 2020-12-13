@@ -284,3 +284,22 @@ kubectl run nginx --image nginx
 ```bash
 kubectl get pods
 ```
+- pod-defination.yml 
+```yaml
+# The kubernetes-api version we are using to create the object, 
+apiVersion : v1      # String
+# The type of object we are trying to create String
+kind : Pod
+metadata:  
+  name : myapp-pod  # dictionary of objects
+  labels:
+    app: myapp
+spec:
+  containers:     # List/Array, as pods can have multiple containers
+    - name: nginx-container   # again a dictionary
+      image: nginx
+```
+- finally create object
+```bash
+kubectl create -f pod-defination.yml
+```
