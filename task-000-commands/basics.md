@@ -267,3 +267,20 @@ worker-2   NotReady    <none>   10d    v1.19.4
     ```bash
     ps -aux | grep kube-controller-manager
     ```
+
+### pod
+
+- A `pod` is the smallest object that you can create in kubernetes
+- pods **usually** have one-to-one relationship while scaling your application. When you scale your app, you 
+  add more pods (not more containers in the same pod)
+- A pod can have multiple containers as well
+- The containers in a pod by default would have access to the same storage, same network namespace. The are created together
+  and destroyed together.
+- How to deploy pod with an image of nginx
+```bash
+kubectl run nginx --image nginx
+```
+- How to get the pods
+```bash
+kubectl get pods
+```
