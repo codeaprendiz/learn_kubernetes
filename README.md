@@ -37,6 +37,10 @@
 
 ### Pod Security
 - [task-012-PodSecurityPolicy](gcp/task-012-PodSecurityPolicy)
+
+
+### Basics
+- [task-017-pods](local-mac/task-017-pods)
     
    
 
