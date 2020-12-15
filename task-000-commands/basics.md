@@ -115,7 +115,13 @@
   
 ### Replication-Controller
 - If desired number of containers are running at any point in time in a replication group.
+- The replication controller helps us run multiple instances of a single pod in a kubernetes cluster
+  thus providing high availability.
+Load Balancing And Scaling
+- The replication controller spans across multiple nodes in a cluster and helps to balance the load across
+  multiple pods (in same or different nodes) in a cluster
 
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/replication-controller-load-balancing-scaling.png) 
 
 ### kube-apiserver
 - Primary management component of kubernetes
