@@ -4,7 +4,8 @@
     - [ETCD Cluster](#ETCD-Cluster)
     - [kube-scheduler](#kube-scheduler)
     - [Node Controller](#Node-Controller)
-        - [Replication-Controller](#Replication-Controller)
+    - [Replication-Controller](#Replication-Controller)
+    - [Replicaset](#Replicaset)
     - [kube-apiserver](#kube-apiserver)    
     - [Container-Runtime Engine](#Container-Runtime-Engine)
     - [kubelet](#kubelet)
@@ -122,6 +123,95 @@ Load Balancing And Scaling
   multiple pods (in same or different nodes) in a cluster
 
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/replication-controller-load-balancing-scaling.png) 
+
+- creating a `rc-definition.yml`
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:         # for replication controller
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: front-end
+spec:        # for the replication controller
+  replicas: 3
+  template:     # define a pod template here
+    metadata:   # for the pod
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: frontend
+    spec:            # for the pod
+      containers:
+        - name: nginx-container
+          image: nginx
+```
+
+- To view the replicationController resources
+```bash
+$ kubectl get replicationcontroller
+```
+
+- Now to view the pods created, you can use `kubectl get pods`
+
+### Replicaset
+Similar to replication controller
+- Difference between replicationController and replicaSet is the `selector` defination. This helps the replicaSet
+  identify what pods fall under it.
+- It can also manage pods that were not created as a part of replicaset creation 
+- To create a `replicaset-definition.yml`
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+       type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+```
+
+- To create `replicationController` run the following command
+```bash
+kubectl create -f replicaset-definition.yml
+```
+- Now to view the pods you can use `kubectl get pods`
+
+- To increase the number of `replicasets` you can use the following scale command
+```bash
+kubectl scale --replicas=6 -f replicaset-definition.yml
+# OR
+kubectl scale --replicas=6 replicaset myapp-replicaset
+```
+
+- To get the replicaset resources use
+```bash
+kubectl get replicaset
+```
+- To delete the replicaset object
+```bash
+kubectl delete replicaset myapp-replicaset
+```
+
+- How replicaset monitors `pods` with specific `matchlabels`
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/replicaset-monitor-pods-matchlabels.png)
+
 
 ### kube-apiserver
 - Primary management component of kubernetes
