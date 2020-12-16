@@ -14,6 +14,10 @@
 - [logs](#logs)
     - [since](#since)
     - [-f](#-f)
+- [run](#run)
+    - [--dry-run](#--dry-run)
+    - [--image](#--image)
+    - [-o yaml](#-o-yaml)
 
 ## apply
 [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
@@ -127,7 +131,30 @@ kubectl logs -f -c ruby web-1
 kubectl logs -f -lapp=nginx --all-containers=true
 ```
 
-## Test
+
+
+## run
+[run](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#run)
+
+### --dry-run
+- To NOT create nginx pod, only generate yaml 
+```bash
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+```
+
+### --image
+
+- To create NGINX pod
+```bash
+kubectl run nginx --image=nginx
+```
+
+### -o yaml 
+- To create nginx pod and generate the yaml
+```bash
+kubectl run nginx --image=nginx -o yaml
+```
+
 
 
 Force deleting
