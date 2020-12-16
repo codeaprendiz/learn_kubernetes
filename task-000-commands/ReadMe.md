@@ -4,6 +4,10 @@
 - [config](#config)
     - [view](#view)
     - [set-credentials](#set-credentials)
+- [create](#create)
+    - [--dry-run](#--dry-run)
+    - [--image](#--image)
+    - [-o yaml](#-o-yaml)
 - [delete](#delete)
 - [describe](#describe)
     - [pod](#pod)
@@ -46,6 +50,29 @@ https://kubernetes.docker.internal:6443
 ```bash
 kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true
 ```
+
+## create
+[create](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#create)
+
+### --dry-run
+- Generate Deployment YAML file (-o yaml). Don't create it(--dry-run) with 4 Replicas (--replicas=4)
+```bash
+kubectl create deployment --image=nginx nginx --dry-run=client --replicas=4 -o yaml > nginx-deployment.yaml
+```
+
+### --image
+- Create a deployment
+```bash
+kubectl create deployment --image=nginx nginx
+```
+
+### -o yaml 
+- Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
+```bash
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+```
+
+
 
 ## delete
 [delete](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete)
