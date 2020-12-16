@@ -12,6 +12,7 @@
     - [Kube-proxy service](#Kube-proxy-service)
     - [Kube-controller Manager](#Kube-controller-Manager)
     - [pod](#pod)
+    - [deployment](#deployment)
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -399,3 +400,63 @@ spec:
 ```bash
 kubectl create -f pod-defination.yml
 ```
+
+### deployment
+Gives us capabilities like
+- webserver you need to deploy in production environment, you need many such instances of the
+  webserver running
+- whenever newer version of the webapp becomes available in the docker registry, you would want to 
+  upgrade the webapp in all the instances
+- while upgrading the instances you would like to upgrade gradually (not all at once), rolling update
+- you would also like to be alble to rollback the changes that were recently carried out. 
+
+- So how can we create a deployment. The contents would be same as that of replicaset except for the kind
+  which would now become deployment
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+       type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+```
+
+- You can create deployment resource using
+```bash
+kubectl create -f deployment-definition.yaml 
+```
+
+- You can get the deployments using
+```bash
+kubectl get deployments
+```
+
+> Note: The deployment automatically creates a replicaset so when you do the following (replicaset in the name of the deployment).
+> The replicaset ultimately creates pods so if you check the pods you would see them as well.
+```bash
+kubectl get replicaset
+```
+
+- To get `all` the objects created
+```bash
+kubectl get all
+```
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-deployment.png)
