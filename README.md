@@ -41,6 +41,7 @@
 
 ### Basics
 - [task-017-pods](local-mac/task-017-pods)
+- [task-018-replicaset](local-mac/task-018-replicaset)
     
    
 
