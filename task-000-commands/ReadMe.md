@@ -9,6 +9,9 @@
     - [--image](#--image)
     - [-o yaml](#-o-yaml)
 - [delete](#delete)
+    [--force](#--force)
+    [--grace-period](#--grace-period)
+    [--namespace](#--namespace)
 - [describe](#describe)
     - [pod](#pod)
 - [exec](#exec)    
@@ -81,6 +84,23 @@ kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
 ```bash
 $ kubectl delete deployment www
 deployment.extensions "www" deleted
+```
+### --force
+- To immediately remove resources from API and bypass graceful deletion.
+```bash
+kubectl delete pod <PODNAME> --grace-period=0 --force --namespace <NAMESPACE>
+```
+
+### --grace-period
+- To delete a pod with zero grace period, delete immediately. It is the period of time in seconds given to the resource to terminate gracefully.
+```bash
+kubectl delete pod <PODNAME> --grace-period=0 --force --namespace <NAMESPACE>
+```
+
+### --namespace
+- To delete pod web-pack in namespace frontend
+```bash
+kubectl delete pod web-pack --namespace frontend
 ```
 
 ## describe
