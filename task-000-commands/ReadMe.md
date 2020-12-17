@@ -25,6 +25,7 @@
     - [--dry-run](#--dry-run)
     - [--image](#--image)
     - [-o yaml](#-o-yaml)
+- [scale](#scale)
 
 ## apply
 [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
@@ -202,12 +203,12 @@ kubectl run nginx --image=nginx
 kubectl run nginx --image=nginx -o yaml
 ```
 
+## scale
+[scale](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#scale)
 
-
-Force deleting
-https://stackoverflow.com/questions/35453792/pods-stuck-in-terminating-status
-
-
-
+- To scale a deployment named `httpd-frontend` to 3 replicas
+```bash
+$ kubectl scale deployment httpd-frontend --replicas=3
+```
 
 
