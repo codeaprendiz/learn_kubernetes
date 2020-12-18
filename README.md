@@ -43,6 +43,6 @@
 - [task-017-pods](local-mac/task-017-pods)
 - [task-018-replicaset](local-mac/task-018-replicaset)
 - [task-019-deployment](local-mac/task-019-deployment)
-    
+- [task-020-namespaces](local-mac/task-020-namespaces)    
    
 

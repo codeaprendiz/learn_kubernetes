@@ -13,6 +13,7 @@
     - [Kube-controller Manager](#Kube-controller-Manager)
     - [pod](#pod)
     - [deployment](#deployment)
+    - [namespaces](#namespaces)
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -460,3 +461,42 @@ kubectl get all
 ```
 
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-deployment.png)
+
+
+### namespaces
+- all the resources we create get created in the `default` namespace unless explicitly specified.
+- kubernetes creates some pods and services for its internal purpose such as those required by networking solution,
+  dns solution, to isolate these from the user in another namespace created at cluster startup `kube-system`
+- third namespace created by kubernetes is called `kube-public`. This is where resources that should be available to all users
+  created. 
+- Each of the namespaces can have its own set of policies telling who can do what and you can also assign quota of resources
+  to each of the namespaces  
+- The resources within a namespace can refer to each other simply by their names. For example the `web-app` pod can reach the 
+  `db-service` simply by using the hostname `db-service`. If required the `web-app` pod can reach the `db-service` in another 
+  namespace as well. For this it must append the namespace name before i.e. `db-service.dev.svc.cluster.local`. We are able to do this
+  because when the service is created the dns entry is automatically added in this format.
+- `db-service.dev.svc.cluster.local`
+    - Here 
+        - cluster.local: Default domain name of the kubernetes cluster
+        - svc: the subdomain for the service
+        - dev: namespace
+        - db-service: the name of the service
+  
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-namespcaes.png)  
+
+- Create a namespace
+```bash
+kubectl create namespace dev
+```
+- Using yaml file
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+```
+
+- By default our commands are executed in `default` namespace. However when we want to switch the namespace, we can use
+```bash
+kubectl config set-context $(kubectl config 
+```
