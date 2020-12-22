@@ -14,6 +14,7 @@
     - [pod](#pod)
     - [deployment](#deployment)
     - [namespaces](#namespaces)
+    - [resource quota](#resource-quota)
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -498,5 +499,32 @@ metadata:
 
 - By default our commands are executed in `default` namespace. However when we want to switch the namespace, we can use
 ```bash
-kubectl config set-context $(kubectl config 
+kubectl config set-context $(kubectl config current-context) --namespace=kube-system
+```
+
+- To view pods in all namespaces, use the following command
+```bash
+kubectl get pods --all-namespaces
+```
+### resource-quota
+- To limit resources in a namespace, you need to create a resource type ResourceQuota
+  `compute-quota.yaml`
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: dev
+
+spec:
+  hard:
+    pods: "10"
+    requests.cpu: "4"
+    requests.memory: 5Gi
+    limits.cpu: "10"
+    limits.memory: 10Gi
+```
+
+```bash
+kubectl create -f compute-quota.yaml
 ```

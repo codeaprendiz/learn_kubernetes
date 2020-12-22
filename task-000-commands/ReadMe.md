@@ -2,6 +2,7 @@
 
 - [apply](#apply)
 - [config](#config)
+    - [current-context](#current-context)
     - [view](#view)
     - [set-credentials](#set-credentials)
 - [create](#create)
@@ -39,6 +40,15 @@ service/www created
 
 ## config
 [config](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#config)
+
+### current-context
+
+- To display the current context
+```bash
+$ kubectl config current-context                                                  
+docker-desktop
+```
+
 
 ### view
 - To display merged kubeconfig settings or a specified kubeconfig file.
