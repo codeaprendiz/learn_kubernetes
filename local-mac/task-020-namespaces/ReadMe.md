@@ -2,7 +2,7 @@
 
 - To get how many Namespaces exist on the system?
 ```bash
-$ kubectl get namespace         
+$ kubectl get ns         
 NAME              STATUS   AGE
 default           Active   78d
 kube-node-lease   Active   78d

@@ -18,6 +18,7 @@
 - [exec](#exec)    
 - [get](#get)
     - [namespace](#namespace)
+        - [--no-headers](#--no-headers)
     - [pod](#pod)
 - [logs](#logs)
     - [since](#since)
@@ -144,6 +145,15 @@ kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
 $ kubectl get namespace
 NAME                   STATUS   AGE
 default                Active   9d
+```
+
+#### --no-headers
+
+- To get all the pods in given namespace and do not give header columns
+```bash
+$ kubectl get pods -n kube-system --no-headers
+coredns-864fccfb95-gwtl4                 1/1   Running   14    78d
+coredns-864fccfb95-qqlmg                 1/1   Running   14    78d
 ```
 
 ### pod
