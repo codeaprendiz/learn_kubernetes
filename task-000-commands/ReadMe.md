@@ -20,12 +20,15 @@
     - [namespace](#namespace)
         - [--no-headers](#--no-headers)
     - [pod](#pod)
+        - [-n](#-n)
+        - [--all-namespaces](#--all-namespaces)
 - [logs](#logs)
     - [since](#since)
     - [-f](#-f)
 - [run](#run)
     - [--dry-run](#--dry-run)
     - [--image](#--image)
+        - [-n](#-n)
     - [-o yaml](#-o-yaml)
 - [scale](#scale)
 
@@ -180,6 +183,23 @@ items:
 $ kubectl get pod traefik-nb8p2 -n ingress -o yaml
 ```
 
+#### -n
+- To view the pods in `kube-system` namespace
+```bash
+$ kubectl get pods -n kube-system        
+NAME                                     READY   STATUS    RESTARTS   AGE
+coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
+coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
+```
+
+#### --all-namespaces
+```bash
+$ kubectl get pods --all-namespaces
+NAMESPACE     NAME                                     READY   STATUS    RESTARTS   AGE
+kube-system   coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
+kube-system   coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
+```
+
 ## logs
 [logs](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs)
 ### since
@@ -215,6 +235,15 @@ kubectl run nginx --image=nginx --dry-run=client -o yaml
 - To create NGINX pod
 ```bash
 kubectl run nginx --image=nginx
+```
+
+#### -n
+- To create a pod with image `redis` and name `redis` in namespace `kube-system`
+```bash
+$ kubectl run redis --image=redis --dry-run=client -n kube-system -o yaml > pod.yaml
+$ kubectl apply -f .
+OR
+$ kubectl run redis --image=redis -n kube-system
 ```
 
 ### -o yaml 

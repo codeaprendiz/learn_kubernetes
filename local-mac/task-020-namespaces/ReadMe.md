@@ -28,5 +28,8 @@ vpnkit-controller                        1/1     Running   16         78d
 
 - To create a Pod in name `redis` from image `redis` in namespace `kube-system`
 ```bash
+$ kubectl run redis --image=redis --dry-run=client -n kube-system -o yaml > pod.yaml
+```
+```bash
 kubectl -n <namespace> get <resource type> <resource Name> -o yaml.
 ```
