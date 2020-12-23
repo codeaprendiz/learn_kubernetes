@@ -15,6 +15,7 @@
     - [deployment](#deployment)
     - [namespaces](#namespaces)
     - [resource quota](#resource-quota)
+    - [services](#services)
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -528,3 +529,12 @@ spec:
 ```bash
 kubectl create -f compute-quota.yaml
 ```
+
+### services
+
+Kubernetes services enable communication between components within and outside of application.
+For example we have set of pods serving the frontend, set of pods serving the backend. Kubernetes services
+enable the frontend pods to be available to the end users. It helps in communication between backend and frontend pods
+and also helps in establishing connectivity to external datasource.
+ 
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-services.png) 
