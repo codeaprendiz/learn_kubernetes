@@ -538,3 +538,21 @@ enable the frontend pods to be available to the end users. It helps in communica
 and also helps in establishing connectivity to external datasource.
  
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/kubernetes-services.png) 
+
+Consider the following scenario
+  - Laptop has the IP address 192.168.1.10
+  - K8S node is on the same network and has the IP address 192.168.1.2
+  - Internal POD network is in the range 10.244.0.0
+  - POD IP is 10.244.0.2
+  - If you can SSH into the node then you would be able to access the web-app running 
+    in the POD using
+    ```bash
+    curl http://10.244.0.2
+    Hello World!
+    ```
+  - But how do we access this application from the laptop? This is where the kubernetes service comes into play
+  - Kubernetes Service is an object (like Pod or replica set). One of its use case is to `LISTEN` to a `PORT` on the 
+    `NODE` and `forward` the request on that port, to the PORT on the POD running the web-application. This type of service
+    is called *NODE PORT* service as it listens to a port on the node and forward the requests to the pod.
+    
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/node-port-service.png)    
