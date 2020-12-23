@@ -556,3 +556,12 @@ Consider the following scenario
     is called *NODE PORT* service as it listens to a port on the node and forward the requests to the pod.
     
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/node-port-service.png)    
+
+Service Types
+
+- Node Port : Where the service makes an internal POD accessible by a port on the node.
+- Cluster IP : The service creates a virtual IP inside the cluster to enable communication between
+               different services such as a set of frontend servers and a set of backend servers. 
+- Load Balancer : Where it provisions a load balancer for our application in supported cloud providers               
+ 
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/k8s-service-types.png) 
