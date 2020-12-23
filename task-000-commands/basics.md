@@ -558,10 +558,38 @@ Consider the following scenario
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/node-port-service.png)    
 
 Service Types
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/k8s-service-types.png) 
 
 - Node Port : Where the service makes an internal POD accessible by a port on the node.
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/service-node-port.png)
+
 - Cluster IP : The service creates a virtual IP inside the cluster to enable communication between
                different services such as a set of frontend servers and a set of backend servers. 
 - Load Balancer : Where it provisions a load balancer for our application in supported cloud providers               
- 
-![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/k8s-service-types.png) 
+
+service-defination.yaml 
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80  ## Note this is an array and we can have multiple such definations
+      port: 80
+      nodePort: 30008
+  selector: ## This is what tells the service which Pod to hit, you can find them in pod defiation, metadata: labels: 
+    app: myapp
+    type: front-end
+```
+- To create the service
+```bash
+kubectl create -f service-defination.yml
+```
+- To view the service
+```bash
+kubectl get services
+```
