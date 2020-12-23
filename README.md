@@ -2,6 +2,7 @@
 
 - [commands](task-000-commands/ReadMe.md)
 - [basics](task-000-commands/basics.md)
+- [docs links](task-000-commands/doclinks.md)
 
 ## gcp
 
