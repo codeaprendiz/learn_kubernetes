@@ -591,5 +591,13 @@ kubectl create -f service-defination.yml
 ```
 - To view the service
 ```bash
-kubectl get services
+$ kubectl get svc                                                              
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   79d
+myapp-service NodePort   10.106.123.123 <none>      80:30008/TCP 5m
+```
+
+Now if the IP of the Node is `192.168.1.2` then you can access the application via
+```bash
+curl http://192.168.1.2:30008
 ```
