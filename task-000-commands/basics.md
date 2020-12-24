@@ -625,10 +625,10 @@ Consider the following example
 ![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/k8s-service-cluster-ip.png)
 
 service-defination.yaml
-``bash
+```yaml
 apiVersion:
 kind: 
 metadata:
 
 spec:
-``
+```
