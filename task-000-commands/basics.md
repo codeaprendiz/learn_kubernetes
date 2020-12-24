@@ -16,6 +16,8 @@
     - [namespaces](#namespaces)
     - [resource quota](#resource-quota)
     - [services](#services)
+        - [nodeport-service](#nodeport-service)
+        - [clusterip-service](#clusterip-service)
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -568,6 +570,8 @@ Service Types
                different services such as a set of frontend servers and a set of backend servers. 
 - Load Balancer : Where it provisions a load balancer for our application in supported cloud providers               
 
+#### nodeport-service
+
 service-defination.yaml 
 ```yaml
 apiVersion: v1
@@ -601,3 +605,30 @@ Now if the IP of the Node is `192.168.1.2` then you can access the application v
 ```bash
 curl http://192.168.1.2:30008
 ```
+
+- Also note that the Service also does the Load Balancing. The same service is able to balance the load between many pods that have the 
+  same `labels` which is same as the `selector` on the service.
+  Also the same is true even if the pods span across multiple pods.
+  The same service spans across multiple nodes and is able to balance the load 
+  between multiple pods. You can access the web-application by using the `IP:PORT` of any of the nodes (in case the service is of
+  type NodePort)
+  
+#### clusterip-service
+Consider the following example
+- help us group the pods together and provide a single interface to access the pods in a group .
+- A service created to the backend pods allows the frontend pods to access the backend pods randomly
+- Similarly, the service created for redis pods allows the backend pods to access the redis pods randomly.
+- So now each layer (backend/ frontend) scale independent of each other without impacting the communication between the services
+- Each service gets an IP and name assigned to it inside the cluster and that is the name that should be used by other pods to access the service 
+- This type of service is called Cluster IP
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/k8s-service-cluster-ip.png)
+
+service-defination.yaml
+``bash
+apiVersion:
+kind: 
+metadata:
+
+spec:
+``
