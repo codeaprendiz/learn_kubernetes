@@ -29,13 +29,13 @@
 - [run](#run)
     - [--dry-run](#--dry-run)
     - [--image](#--image)
-        - [-n](#-n)
+    - [-n](#-n)
     - [-o yaml](#-o-yaml)
+    - [-p](#-p)
 - [scale](#scale)
 
 
 ```bash
-$ kubectl expose deployment my-dep --name=webapp-service --target-port=80 --type=NodePort --port=8080 --dry-run=client  -o yaml               
 $ kubectl set image deployment nginx nginx=nginx:1.18
 $ kubectl edit deployment nginx
 $ kubectl create -f nginx.yaml
@@ -84,6 +84,11 @@ kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=tru
 
 ## create
 [create](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#create)
+
+- To create a namespace dev-ns
+```bash
+kubectl create namespace dev-ns
+```
 
 ### --dry-run
 - Generate Deployment YAML file (-o yaml). Don't create it(--dry-run) with 4 Replicas (--replicas=4)
@@ -280,7 +285,7 @@ kubectl run nginx --image=nginx --dry-run=client -o yaml
 kubectl run nginx --image=nginx
 ```
 
-#### -n
+### -n
 - To create a pod with image `redis` and name `redis` in namespace `kube-system`
 ```bash
 $ kubectl run redis --image=redis --dry-run=client -n kube-system -o yaml > pod.yaml
@@ -293,6 +298,12 @@ $ kubectl run redis --image=redis -n kube-system
 - To create nginx pod and generate the yaml
 ```bash
 kubectl run nginx --image=nginx -o yaml
+```
+
+### -p 
+- Create a new pod called custom-nginx using the nginx image and expose it on container port 8080
+```bash
+kubectl run custom-nginx --image=nginx --port=5701
 ```
 
 ## scale
