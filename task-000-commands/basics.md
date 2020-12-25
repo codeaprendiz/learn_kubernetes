@@ -626,9 +626,28 @@ Consider the following example
 
 service-defination.yaml
 ```yaml
-apiVersion:
-kind: 
+apiVersion: v1
+kind: Service
 metadata:
+  name: back-end
 
 spec:
+    type: ClusterIP   #default
+    ports:
+      - port: 80
+        targetPort: 80
+    selector:
+      app: myapp
+      type: back-end
+- To create the service
+```bash
+kubectl create -f service-defination.yml
 ```
+
+- To access the service.  Other pods can access the service using `ClusterIP` or `service name`
+```bash
+kubectl get services
+```
+
+
+
