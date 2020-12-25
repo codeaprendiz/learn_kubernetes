@@ -16,8 +16,9 @@
     - [namespaces](#namespaces)
     - [resource quota](#resource-quota)
     - [services](#services)
-        - [nodeport-service](#nodeport-service)
-        - [clusterip-service](#clusterip-service)
+        - [nodeport service](#nodeport-service)
+        - [clusterip service](#clusterip-service)
+        - [load balancer service](#load-balancer-service)
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -648,7 +649,7 @@ kubectl create -f service-defination.yml
 ```bash
 kubectl get services
 ```
-#### Load Balancer Service
+#### load-balancer-service
 - We can access the application by using the IP of the Nodes. However since there are many nodes and many apps (like in below example we have 4 nodes and 
   two applications) we will need to remember many IPs to access the application. We will need to configure our own load balancer to forward the 
   requests to all the nodes.
