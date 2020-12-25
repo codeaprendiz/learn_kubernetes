@@ -15,7 +15,8 @@
     - [--namespace](#--namespace)
 - [describe](#describe)
     - [pod](#pod)
-- [exec](#exec)    
+- [exec](#exec) 
+- [expose](#expose)
 - [get](#get)
     - [namespace](#namespace)
         - [--no-headers](#--no-headers)
@@ -35,7 +36,14 @@
 
 ```bash
 $ kubectl expose deployment my-dep --name=webapp-service --target-port=80 --type=NodePort --port=8080 --dry-run=client  -o yaml               
+$ kubectl set image deployment nginx nginx=nginx:1.18
+$ kubectl edit deployment nginx
+$ kubectl create -f nginx.yaml
+$ kubectl replace -f nginx.yaml
+$ kubectl delete -f nginx.yaml
 ```
+
+
 
 ## apply
 [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
@@ -88,7 +96,16 @@ kubectl create deployment --image=nginx nginx --dry-run=client --replicas=4 -o y
 ```bash
 kubectl create deployment --image=nginx nginx
 ```
+- Create a new ClusterIP service named my-cs
+```bash
+kubectl create service clusterip my-cs --tcp=5678:8080
+```
 
+- Create a Service named nginx of type NodePort to expose pod nginx's port 80 on port 30080 on the nodes. 
+  This will automatically use the pod's labels as selectors, but you cannot specify the node port. You have to generate a definition file and then add the node port in manually before creating the service with the pod
+```bash
+kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
+```
 ### -o yaml 
 - Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
 ```bash
@@ -143,6 +160,27 @@ Events:          <none>
 - To list all the keys stored by kubernetes
 ```bash
 kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
+```
+
+## expose
+[expose](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#expose)
+
+- Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379. Note dry run won't actually create it. 
+  We will get the yaml file using the following command.
+```bash
+kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
+```
+
+- Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000.
+```bash
+kubectl expose deployment nginx --port=80 --target-port=8000
+```
+
+- Create a Service named nginx of type NodePort to expose pod nginx's port 80 on port 30080 on the nodes. 
+  This will automatically use the pod's labels as selectors, but you cannot specify the node port. 
+  You have to generate a definition file and then add the node port in manually before creating the service with the pod
+```bash
+kubectl expose pod nginx --port=80 --name nginx-service --type=NodePort --dry-run=client -o yaml
 ```
 
 ## get
