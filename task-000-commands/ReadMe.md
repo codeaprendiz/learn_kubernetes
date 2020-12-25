@@ -32,6 +32,11 @@
     - [-o yaml](#-o-yaml)
 - [scale](#scale)
 
+
+```bash
+$ kubectl expose deployment my-dep --name=webapp-service --target-port=80 --type=NodePort --port=8080 --dry-run=client  -o yaml               
+```
+
 ## apply
 [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
 
