@@ -19,6 +19,7 @@
         - [nodeport service](#nodeport-service)
         - [clusterip service](#clusterip-service)
         - [load balancer service](#load-balancer-service)
+- [How scheduling works]()    
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
@@ -672,4 +673,28 @@ spec:
       
 ```
 
+
+## how-scheduling-works
+
+- Every pods has a field called `nodeName` that by default is not set. Kubernetes adds it automatically.
+  The scheduler goes through all the pods and looks for those which do not have this
+  property set, those are the candidates for scheduling. It then identifies the the right node for the pod
+  by running the right scheduling algorithm. Once identified it then schedules the pod for the node by setting
+  the `nodeName` property for the pod equal to the name of the node
+  
+- If there is no scheduler for the pods, then the pods remain in Pending state. You can also manually assing pods to the 
+  nodes itself. If you set the `nodeName` property to the name of the node. You can only specify the nodeName at the
+  pod creation time. It will not work if you try to do the same to already existing pod.
+  If you want to assing a node to existing pod then create a pod-binding object
+```yaml
+apiVersion: v1
+kind: Binding
+metadata:
+  name: nginx
+target:
+  apiVersion: v1
+  kind: Node
+  name: node2
+```
+  And send a POST request to the pod-binding api with the above data.
 
