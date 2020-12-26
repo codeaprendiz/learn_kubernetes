@@ -19,7 +19,7 @@
         - [nodeport service](#nodeport-service)
         - [clusterip service](#clusterip-service)
         - [load balancer service](#load-balancer-service)
-- [How scheduling works]()    
+- [How scheduling works](#how-scheduling-works)    
 
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
