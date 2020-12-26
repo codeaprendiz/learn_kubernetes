@@ -680,12 +680,24 @@ spec:
   The scheduler goes through all the pods and looks for those which do not have this
   property set, those are the candidates for scheduling. It then identifies the the right node for the pod
   by running the right scheduling algorithm. Once identified it then schedules the pod for the node by setting
-  the `nodeName` property for the pod equal to the name of the node
+  the `nodeName` property for the pod equal to the name of the node. 
   
 - If there is no scheduler for the pods, then the pods remain in Pending state. You can also manually assing pods to the 
   nodes itself. If you set the `nodeName` property to the name of the node. You can only specify the nodeName at the
-  pod creation time. It will not work if you try to do the same to already existing pod.
-  If you want to assing a node to existing pod then create a pod-binding object
+  pod creation time. It will not work if you try to do the same to already existing pod. So you might need to delete the pod and create it again
+  with the nodeName
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  nodeName: kube-01
+```
+  If you want to assing a node to existing pod without deleting then create a pod-binding object
 ```yaml
 apiVersion: v1
 kind: Binding
