@@ -20,7 +20,7 @@
         - [clusterip service](#clusterip-service)
         - [load balancer service](#load-balancer-service)
 - [How scheduling works](#how-scheduling-works)    
-- [Labels And Selectors]()
+- [Labels And Selectors](#labels-and-selectors)
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
