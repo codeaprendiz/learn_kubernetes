@@ -20,7 +20,7 @@
         - [clusterip service](#clusterip-service)
         - [load balancer service](#load-balancer-service)
 - [How scheduling works](#how-scheduling-works)    
-
+- [Labels And Selectors]()
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
@@ -710,3 +710,49 @@ target:
 ```
   And send a POST request to the pod-binding api with the above data.
 
+
+## labels-and-selectors
+
+- You can group and select objects using labels-and-selectors
+- You can attach labels to each object as per your needs
+
+- How to specifiy lables to filter the objects, in the pod-defination.yaml file.
+```yaml
+metadata:
+    name: app
+    labels:
+      app: App1
+      function: Front-end
+```
+We can add as many labels as well like. You can also view the pod with a given label 
+```bash
+kubectl get pods --selector app=App1
+```
+
+- Similarly labels are also used in `replica-set.yaml` as well to group the selected pods
+```yaml
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: App1
+      function: Front-end
+```
+
+- Similarly, a `service.yaml` uses the labels to match the labels on the pods
+```yaml
+spec:
+  selector:
+    app: App1
+```
+
+Now `annotations` are used to record other details for information purpose. For example buildVersion
+```yaml
+metadata:
+  name: simple-webapp
+  labels:
+    app: App1
+    function: Front-end
+  annotations:
+    buildversion: 1.34
+```

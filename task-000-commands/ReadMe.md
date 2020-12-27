@@ -41,6 +41,7 @@ $ kubectl edit deployment nginx
 $ kubectl create -f nginx.yaml
 $ kubectl replace -f nginx.yaml
 $ kubectl delete -f nginx.yaml
+$ kubectl get pods --selector app=App1
 ```
 
 
