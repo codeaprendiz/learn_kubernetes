@@ -32,8 +32,8 @@
     - [-n](#-n)
     - [-o yaml](#-o-yaml)
     - [-p](#-p)
-- [scale    :                       To scale a deployment named httpd-frontend to 3 replicas](#scale)
-- [set      :                       Set a deployment's nginx container image to nginx:1.9.1](#set)
+- [scale](#scale)
+- [set](#set)
 
 
 ```bash
