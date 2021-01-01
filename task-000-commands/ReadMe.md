@@ -45,6 +45,9 @@ $ kubectl get pods --selector app=App1
 $ kubectl get pods --show-labels
 $ kubectl get pods -l env=dev
 $ kubectl get pod -l env=prod,bu=finance,tier=frontend
+$ kubectl get pods --selector app=App1
+$ kubectl taint nodes node1 app=blue:NoSchedule
+$ kubectl describe node docker-desktop | grep Taints
 ```
 
 
