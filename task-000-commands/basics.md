@@ -808,3 +808,25 @@ You can check the taints using following command
 $ kubectl describe node docker-desktop | grep Taints
 Taints:             <none>
 ```
+
+## node-selectors
+This is used to limit the pod on a particular node
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+spec:
+  containers:
+    - name: data-processor
+      image: data-processor
+  nodeSelector:
+    size: Large
+```
+
+This also requires labelling the nodes correspondingly. This ensures
+that the pod is placed on the right node.
+```bash
+kubectl label nodes <node-name> <label-key>=<label-value> 
+kubectl label nodes node-1 size=Large
+```

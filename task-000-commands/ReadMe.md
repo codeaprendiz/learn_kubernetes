@@ -52,6 +52,8 @@ $ kubectl describe nodes master | grep -i taints
 Taints:      node-role.kubernetes.io/master:NoSchedule      # copy this and put a `-` at the end to remove it
 $ kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-  
 $ kubectl explain pod --recursive | less
+$ kubectl label nodes <node-name> <label-key>=<label-value> 
+$ kubectl label nodes node-1 size=Large
 ```
 
 
