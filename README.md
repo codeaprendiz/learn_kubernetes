@@ -46,5 +46,6 @@
 - [task-019-deployment](local-mac/task-019-deployment)
 - [task-020-namespaces](local-mac/task-020-namespaces)
 - [task-021-services](local-mac/task-021-services)
+- [task-022-labels-and-selectors](local-mac/task-022-labels-and-selectors)
    
 

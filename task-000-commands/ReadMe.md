@@ -42,6 +42,9 @@ $ kubectl create -f nginx.yaml
 $ kubectl replace -f nginx.yaml
 $ kubectl delete -f nginx.yaml
 $ kubectl get pods --selector app=App1
+$ kubectl get pods --show-labels
+$ kubectl get pods -l env=dev
+$ kubectl get pod -l env=prod,bu=finance,tier=frontend
 ```
 
 
