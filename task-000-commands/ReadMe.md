@@ -1,15 +1,10 @@
 # kubectl
 
-- [apply-----------------------------------------------------------------To apply the yaml resources.yaml](#apply)
+- [apply-----------------------------------------To apply the yaml resources.yaml](#apply)
 - [config](#config)
-    - [current-context](#current-context)
-> To display the current context
-
-    - [view](#view)
-> To display merged kubeconfig settings or a specified kubeconfig file.
-
-    - [set-credentials](#set-credentials)
-> To set a user 'dave' entry in kubeconfig
+    - [current-context---------------------------To display the current context](#current-context)
+    - [view--------------------------------------To display merged kubeconfig settings or a specified kubeconfig file.](#view)
+    - [set-credentials---------------------------To set a user 'dave' entry in kubeconfig](#set-credentials)
 - [create](#create)
     - [--dry-run](#--dry-run)
     - [--image](#--image)
