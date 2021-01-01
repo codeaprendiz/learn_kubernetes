@@ -33,10 +33,10 @@
     - [-o yaml](#-o-yaml)
     - [-p](#-p)
 - [scale](#scale)
+- [set  : Set a deployment's nginx container image to nginx:1.9.1](#set)
 
 
 ```bash
-$ kubectl set image deployment nginx nginx=nginx:1.18
 $ kubectl edit deployment nginx
 $ kubectl create -f nginx.yaml
 $ kubectl replace -f nginx.yaml
@@ -328,3 +328,17 @@ $ kubectl scale deployment httpd-frontend --replicas=3
 ```
 
 
+## set
+[set](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#set)
+
+- Set a deployment's nginx container image to `nginx:1.9.1`
+```bash
+$ kubectl create deployment my-dep --image=nginx
+deployment.apps/my-dep created
+$ kubectl describe deployment my-dep | grep -i image
+    Image:        nginx
+$ kubectl set image deployment my-dep nginx=nginx:1.9.1
+deployment.apps/my-dep image updated
+$ kubectl describe deployment my-dep | grep -i image  
+    Image:        nginx:1.9.1
+```
