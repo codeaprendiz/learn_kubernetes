@@ -5,30 +5,30 @@
     - [current-context---------------------------To display the current context](#current-context)
     - [view--------------------------------------To display merged kubeconfig settings or a specified kubeconfig file.](#view)
     - [set-credentials---------------------------To set a user 'dave' entry in kubeconfig](#set-credentials)
-- [create](#create)
-    - [--dry-run](#--dry-run)
-    - [--image](#--image)
-    - [-o yaml](#-o-yaml)
-- [delete](#delete)
-    - [--force](#--force)
-    - [--grace-period](#--grace-period)
-    - [--namespace](#--namespace)
+- [create----------------------------------------To create a namespace dev-ns](#create)
+    - [--dry-run---------------------------------Generate Deployment YAML file (-o yaml). Don't create it(--dry-run) with 4 Replicas (--replicas=4)](#--dry-run)
+    - [--image-----------------------------------Create a deployment using nginx image](#--image)
+    - [-o yaml-----------------------------------Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)](#-o-yaml)
+- [delete----------------------------------------To delete deployment with name 'www' from default namespace](#delete)
+    - [--force-----------------------------------To immediately remove resources from API and bypass graceful deletion.](#--force)
+    - [--grace-period----------------------------To delete a pod with zero grace period, delete immediately](#--grace-period)
+    - [--namespace-------------------------------To delete pod web-pack in namespace frontend](#--namespace)
 - [describe](#describe)
-    - [pod](#pod)
-- [edit]()
-- [exec](#exec) 
-- [expose](#expose)
+    - [pod---------------------------------------To describe a pod with name 'traefik-nb8p2' in ingress namespace](#pod)
+- [edit------------------------------------------To change the image of nginx deployment to 1.9.0](#edit)
+- [exec------------------------------------------To list all the keys stored by kubernetes](#exec) 
+- [expose----------------------------------------Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379](#expose)
 - [get](#get)
-    - [namespace](#namespace)
-        - [--no-headers](#--no-headers)
-    - [pod](#pod)
-        - [-n](#-n)
-        - [--all-namespaces](#--all-namespaces)
+    - [namespace---------------------------------To get all the namespace resources](#namespace)
+        - [--no-headers--------------------------To get all the pods in given namespace and do not give header columns](#--no-headers)
+    - [pod---------------------------------------To get all the pod resources in namespace ingress](#pod)
+        - [-n------------------------------------To view the pods in kube-system namespace](#-n)
+        - [--all-namespaces----------------------To view all the pods from all namespaces](#--all-namespaces)
 - [logs](#logs)
-    - [since](#since)
-    - [-f](#-f)
+    - [since-------------------------------------To get the output of logs of a given resource like pod since last one hour](#since)
+    - [-f----------------------------------------Begin streaming the logs of the ruby container in pod web-1](#-f)
 - [run](#run)
-    - [--dry-run](#--dry-run)
+    - [--dry-run---------------------------------To NOT create nginx pod, only generate yaml ](#--dry-run)
     - [--image](#--image)
     - [-n](#-n)
     - [-o yaml](#-o-yaml)
@@ -111,7 +111,7 @@ kubectl create deployment --image=nginx nginx --dry-run=client --replicas=4 -o y
 ```
 
 ### --image
-- Create a deployment
+- Create a deployment using nginx image
 ```bash
 kubectl create deployment --image=nginx nginx
 ```
@@ -176,9 +176,16 @@ Events:          <none>
 
 ## edit
 [edit](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#edit)
-- To list all the keys stored by kubernetes
+- To change the image of nginx deployment to 1.9.0
 ```bash
-
+$ kubectl create deployment my-dep --image=nginx
+deployment.apps/my-dep created
+$ kubectl describe deployment my-dep | grep -i image
+    Image:        nginx
+$ kubectl edit deployment my-dep                    
+deployment.apps/my-dep edited
+$ kubectl describe deployment my-dep | grep -i image
+    Image:        nginx:1.9.0
 ```
 
 
@@ -263,6 +270,7 @@ coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
 ```
 
 #### --all-namespaces
+- To view all the pods from all namespaces
 ```bash
 $ kubectl get pods --all-namespaces
 NAMESPACE     NAME                                     READY   STATUS    RESTARTS   AGE
