@@ -1,7 +1,6 @@
 # kubectl
 
-- [apply](#apply)
-> To apply the yaml resources.yaml
+- [apply-----------------------------------------------------------------To apply the yaml resources.yaml](#apply)
 - [config](#config)
     - [current-context](#current-context)
 > To display the current context
