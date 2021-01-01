@@ -1,10 +1,14 @@
 # kubectl
 
 - [apply](#apply)
+> To apply the yaml resources.yaml
 - [config](#config)
     - [current-context](#current-context)
+> To display the current context
     - [view](#view)
+> To display merged kubeconfig settings or a specified kubeconfig file.
     - [set-credentials](#set-credentials)
+> To set a user 'dave' entry in kubeconfig
 - [create](#create)
     - [--dry-run](#--dry-run)
     - [--image](#--image)
@@ -15,6 +19,7 @@
     - [--namespace](#--namespace)
 - [describe](#describe)
     - [pod](#pod)
+- [edit]()
 - [exec](#exec) 
 - [expose](#expose)
 - [get](#get)
@@ -172,6 +177,14 @@ Namespace:      ingress
 .
 Events:          <none>
 ```
+
+## edit
+[edit](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#edit)
+- To list all the keys stored by kubernetes
+```bash
+
+```
+
 
 ## exec
 [exec](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec)
