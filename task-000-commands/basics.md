@@ -756,3 +756,54 @@ metadata:
   annotations:
     buildversion: 1.34
 ```
+
+## taints-and-tolerations
+
+They are used to set up the restrictions on what pods can be scheduled on a node.
+
+`Taints` are set on Nodes and `Tolerations` are set on pods. `taint-effect` defines what will happen to the pod if they do not
+tolerate the taint. There are three taint-effects
+  - NoSchedule: which means the pods will not be scheduled on the node
+  - PreferNoSchedule: which means that the system will avoid placing a pod
+                       on the node but that's not guaranteed
+  - NoExecute: which means no new pods will not be scheduled on the node and existing 
+               pods on the node if any will be evicted if they do not tolerate the taint
+```bash
+kubectl taint nodes <node-name>  <key>=<value>:[NoSchedule|PreferNoSchedule|NoExecute]
+
+kubectl taint nodes node1 app=blue:NoSchedule
+```
+
+![](https://github.com/codeaprendiz/_assets/blob/master/kubernetes-kitchen/taints-and-tolerations.png)
+
+Now how can we add the tolerations to the pods.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+  tolerations:
+    - key: "app"
+    - operator: "Equal"
+    - value: "blue"
+    - effect: "NoSchedule"
+```
+
+When the new pods are created with above `tolerations`, they are either not scheduled on the nodes or evicted from
+the existing nodes depending on the `effect` set
+
+Note:
+  - NoExecute ensures that a pod with a toleration to a given taint will be accepted on the node with that particular taint. But the pod can 
+    still be scheduled on other nodes as well. It also ensures that any other pods that do not have the toleration to the taint and had already been
+    scheduled before, would be removed from the node.
+  - Also note that the scheduler does not schedule any pods on the master node, this is because the a taint is already created on the master node upon cluster creation.
+  
+You can check the taints using following command
+```bash
+$ kubectl describe node docker-desktop | grep Taints
+Taints:             <none>
+```
