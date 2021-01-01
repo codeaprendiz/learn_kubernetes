@@ -48,6 +48,10 @@ $ kubectl get pod -l env=prod,bu=finance,tier=frontend
 $ kubectl get pods --selector app=App1
 $ kubectl taint nodes node1 app=blue:NoSchedule
 $ kubectl describe node docker-desktop | grep Taints
+$ kubectl describe nodes master | grep -i taints
+Taints:      node-role.kubernetes.io/master:NoSchedule      # copy this and put a `-` at the end to remove it
+$ kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-  
+$ kubectl explain pod --recursive | less
 ```
 
 

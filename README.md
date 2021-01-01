@@ -47,5 +47,6 @@
 - [task-020-namespaces](local-mac/task-020-namespaces)
 - [task-021-services](local-mac/task-021-services)
 - [task-022-labels-and-selectors](local-mac/task-022-labels-and-selectors)
+- [task-023-taints-and-tolerations](local-mac/task-023-taints-and-tolerations)
    
 
