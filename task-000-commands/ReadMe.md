@@ -7,9 +7,11 @@
     - [set-credentials---------------------------To set a user 'dave' entry in kubeconfig](#set-credentials)
 - [create----------------------------------------To create a namespace dev-ns](#create)
     - [--dry-run---------------------------------Generate Deployment YAML file (-o yaml). Don't create it(--dry-run) with 4 Replicas (--replicas=4)](#--dry-run)
-    - [--image-----------------------------------Create a deployment using nginx image](#--image)
+    - [-f----------------------------------------Create a pod using the data in pod.json.](#-f)
+    - [--image-----------------------------------Create a deployment using nginx image, Create a new ClusterIP service named my-cs](#--image)
     - [-o yaml-----------------------------------Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)](#-o-yaml)
 - [delete----------------------------------------To delete deployment with name 'www' from default namespace](#delete)
+    - [-f----------------------------------------Delete a pod using the type and name specified in pod.json.](#-f)
     - [--force-----------------------------------To immediately remove resources from API and bypass graceful deletion.](#--force)
     - [--grace-period----------------------------To delete a pod with zero grace period, delete immediately](#--grace-period)
     - [--namespace-------------------------------To delete pod web-pack in namespace frontend](#--namespace)
@@ -22,26 +24,23 @@
     - [namespace---------------------------------To get all the namespace resources](#namespace)
         - [--no-headers--------------------------To get all the pods in given namespace and do not give header columns](#--no-headers)
     - [pod---------------------------------------To get all the pod resources in namespace ingress](#pod)
-        - [-n------------------------------------To view the pods in kube-system namespace](#-n)
         - [--all-namespaces----------------------To view all the pods from all namespaces](#--all-namespaces)
+        - [-n------------------------------------To view the pods in kube-system namespace](#-n)
 - [logs](#logs)
     - [since-------------------------------------To get the output of logs of a given resource like pod since last one hour](#since)
     - [-f----------------------------------------Begin streaming the logs of the ruby container in pod web-1](#-f)
+- [replace---------------------------------------Replace a pod using the data in pod.json.](#replace)
 - [run](#run)
     - [--dry-run---------------------------------To NOT create nginx pod, only generate yaml ](#--dry-run)
-    - [--image](#--image)
-    - [-n](#-n)
-    - [-o yaml](#-o-yaml)
-    - [-p](#-p)
-- [scale](#scale)
-- [set](#set)
+    - [--image-----------------------------------To create NGINX pod](#--image)
+    - [-n----------------------------------------To create a pod with image redis and name redis in namespace kube-system](#-n)
+    - [-o yaml-----------------------------------To create nginx pod and generate the yaml](#-o-yaml)
+    - [-p----------------------------------------Create a new pod called custom-nginx using the nginx image and expose it on container port 8080](#-p)
+- [scale-----------------------------------------To scale a deployment named httpd-frontend to 3 replicas](#scale)
+- [set-------------------------------------------Set a deployment's nginx container image to nginx:1.9.1](#set)
 
 
 ```bash
-$ kubectl edit deployment nginx
-$ kubectl create -f nginx.yaml
-$ kubectl replace -f nginx.yaml
-$ kubectl delete -f nginx.yaml
 $ kubectl get pods --selector app=App1
 $ kubectl get pods --show-labels
 $ kubectl get pods -l env=dev
@@ -110,6 +109,12 @@ kubectl create namespace dev-ns
 kubectl create deployment --image=nginx nginx --dry-run=client --replicas=4 -o yaml > nginx-deployment.yaml
 ```
 
+### -f
+- Create a pod using the data in pod.json.
+```bash
+kubectl create -f ./pod.json
+```
+
 ### --image
 - Create a deployment using nginx image
 ```bash
@@ -141,6 +146,13 @@ kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
 $ kubectl delete deployment www
 deployment.extensions "www" deleted
 ```
+
+### -f
+- Delete a pod using the type and name specified in pod.json.
+```bash
+kubectl delete -f ./pod.json
+```
+
 ### --force
 - To immediately remove resources from API and bypass graceful deletion.
 ```bash
@@ -260,15 +272,6 @@ items:
 $ kubectl get pod traefik-nb8p2 -n ingress -o yaml
 ```
 
-#### -n
-- To view the pods in `kube-system` namespace
-```bash
-$ kubectl get pods -n kube-system        
-NAME                                     READY   STATUS    RESTARTS   AGE
-coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
-coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
-```
-
 #### --all-namespaces
 - To view all the pods from all namespaces
 ```bash
@@ -276,6 +279,15 @@ $ kubectl get pods --all-namespaces
 NAMESPACE     NAME                                     READY   STATUS    RESTARTS   AGE
 kube-system   coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
 kube-system   coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
+```
+
+#### -n
+- To view the pods in `kube-system` namespace
+```bash
+$ kubectl get pods -n kube-system        
+NAME                                     READY   STATUS    RESTARTS   AGE
+coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
+coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
 ```
 
 ## logs
@@ -297,7 +309,12 @@ kubectl logs -f -c ruby web-1
 kubectl logs -f -lapp=nginx --all-containers=true
 ```
 
-
+## replace
+[replace](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#replace)
+- Replace a pod using the data in pod.json.
+```bash
+kubectl replace -f ./pod.json
+```
 
 ## run
 [run](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#run)
