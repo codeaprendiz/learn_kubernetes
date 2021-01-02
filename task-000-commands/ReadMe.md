@@ -17,8 +17,11 @@
     - [--namespace-------------------------------To delete pod web-pack in namespace frontend](#--namespace)
 - [describe](#describe)
     - [pod---------------------------------------To describe a pod with name 'traefik-nb8p2' in ingress namespace](#pod)
+    - [node--------------------------------------To get the Taints on master node](#node)
 - [edit------------------------------------------To change the image of nginx deployment to 1.9.0](#edit)
 - [exec------------------------------------------To list all the keys stored by kubernetes](#exec) 
+- [explain](#explain)
+    [--recursive----------------------------------------------------------------Print the fields of fields](#--recursive)
 - [expose----------------------------------------Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379](#expose)
 - [get](#get)
     - [namespace---------------------------------To get all the namespace resources](#namespace)
@@ -26,6 +29,9 @@
     - [pod---------------------------------------To get all the pod resources in namespace ingress](#pod)
         - [--all-namespaces----------------------To view all the pods from all namespaces](#--all-namespaces)
         - [-n------------------------------------To view the pods in kube-system namespace](#-n)
+        - [--selector or -l ---------------------You can filter the list using a label selector and the --selector flag](#--selector-or-l)
+        - [--show-labels-------------------------To list the existing pods and also show the labels in default namespace](#--show-labels)
+- [label-----------------------------------------Update the label on node node-1 with key 'size' and value 'Large'](#label)
 - [logs](#logs)
     - [since-------------------------------------To get the output of logs of a given resource like pod since last one hour](#since)
     - [-f----------------------------------------Begin streaming the logs of the ruby container in pod web-1](#-f)
@@ -38,23 +44,9 @@
     - [-p----------------------------------------Create a new pod called custom-nginx using the nginx image and expose it on container port 8080](#-p)
 - [scale-----------------------------------------To scale a deployment named httpd-frontend to 3 replicas](#scale)
 - [set-------------------------------------------Set a deployment's nginx container image to nginx:1.9.1](#set)
+- [taint-----------------------------------------Update node 'node1' with a taint with key 'app' and value 'blue' and effect 'NoSchedule'.](#taint)
 
 
-```bash
-$ kubectl get pods --selector app=App1
-$ kubectl get pods --show-labels
-$ kubectl get pods -l env=dev
-$ kubectl get pod -l env=prod,bu=finance,tier=frontend
-$ kubectl get pods --selector app=App1
-$ kubectl taint nodes node1 app=blue:NoSchedule
-$ kubectl describe node docker-desktop | grep Taints
-$ kubectl describe nodes master | grep -i taints
-Taints:      node-role.kubernetes.io/master:NoSchedule      # copy this and put a `-` at the end to remove it
-$ kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-  
-$ kubectl explain pod --recursive | less
-$ kubectl label nodes <node-name> <label-key>=<label-value> 
-$ kubectl label nodes node-1 size=Large
-```
 
 
 
@@ -186,6 +178,13 @@ Namespace:      ingress
 Events:          <none>
 ```
 
+### node
+
+- To get the Taints on master node
+```bash
+$ kubectl describe nodes master | grep -i taints
+```
+
 ## edit
 [edit](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#edit)
 - To change the image of nginx deployment to 1.9.0
@@ -207,6 +206,17 @@ $ kubectl describe deployment my-dep | grep -i image
 ```bash
 kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
 ```
+
+## explain
+[explain](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#explain)
+List the fields for supported resources
+### --recursive
+
+- Print the fields of fields
+```bash
+$ kubectl explain pod --recursive | less
+```
+
 
 ## expose
 [expose](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#expose)
@@ -289,6 +299,36 @@ NAME                                     READY   STATUS    RESTARTS   AGE
 coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
 coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
 ```
+
+#### --selector-or-l
+
+-  Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag
+```bash
+$ kubectl get pods --selector app=App1
+## OR 
+$ kubectl get pods -l env=dev
+## Multiple labels
+$ kubectl get pod -l env=prod,bu=finance,tier=frontend
+```
+
+#### --show-labels
+
+- To list the existing pods and also show the labels in default namespace
+
+```bash
+$ kubectl get pods --show-labels
+```
+
+## label
+[label](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#label)
+
+- Update the label on node node-1 with key 'size' and value 'Large'
+
+```bash
+$ kubectl label nodes node-1 size=Large
+```
+
+
 
 ## logs
 [logs](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs)
@@ -375,4 +415,20 @@ $ kubectl set image deployment my-dep nginx=nginx:1.9.1
 deployment.apps/my-dep image updated
 $ kubectl describe deployment my-dep | grep -i image  
     Image:        nginx:1.9.1
+```
+
+
+## taint
+[taint](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#taint)
+
+- Update node 'node1' with a taint with key 'app' and value 'blue' and effect 'NoSchedule'. 
+  If a taint with that key and effect already exists, its value is replaced as specified
+```bash
+$ kubectl taint nodes node1 app=blue:NoSchedule
+```
+
+- Remove from node 'foo' the taint with key 'dedicated' and effect 'NoSchedule' if one exists. Put a `-` at the end of Taint (which you can get using
+  `kubectl describe node master | grep -i taint`)
+```bash
+$ kubectl taint nodes foo dedicated:NoSchedule-
 ```
