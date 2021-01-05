@@ -22,6 +22,7 @@
 - [How scheduling works](#how-scheduling-works)    
 - [Labels And Selectors](#labels-and-selectors)
 - [taints-and-tolerations](#taints-and-tolerations)
+- [node-affinity](#node-affinity)
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
@@ -830,3 +831,45 @@ that the pod is placed on the right node.
 kubectl label nodes <node-name> <label-key>=<label-value> 
 kubectl label nodes node-1 size=Large
 ```
+
+## node-affinity
+
+- Primary feature of node-affinity is to ensure that the pods are hosted on particular nodes. For example we would want the large data processing pod 
+  should end up on node1
+  
+```yaml
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: size
+            operator: In
+            values:
+            - Large
+            - Medium
+```
+
+This tells that the `pod` would be placed on any node whose label size has any value in the 
+list of values specified here. In this case we are using the `In` operator. Similarly we can also use
+`Exists` and `NotIn` and other operators as well.  
+
+The type of node affinity defines the behaviour of the scheduler w.r.t to the node affinity and the stages on the lifecycle of a
+pod. Two types are available now
+- requiredDuringSchedulingIgnoredDuringExecution
+- preferredDuringSchedulingIgnoredDuringExecution
+
+Following are two states in the lifecycle of a pod while considering node affinity
+
+- DuringScheduling 
+  - When the pod does not exist and is created for the first time 
+  - Now if the `type` is `Required` then it mandates that the pod has to be placed on a node with 
+    given affinity, if that node is not present then the pod would not be scheduled
+  - If the `type` is `Preferred` then if the node with given affinity is not found then the scheduler
+    woudld simply place the pod on any other available node.
+- DuringExecution
+  - The pod has been running and a change has been made in the environment that affects node affinity such as 
+    change in the label of a node. 
+  - If the type is `Ignored` then any changes in node affinity would not impact the pods once they are scheduled.
+  - If the type is `Required` here then then the existing pods would be evicted if there are any chages in the node affinity of a node i.e. if the 
+    label of a node `large` is removed, then the pod with this label `large` would also be evicted.
