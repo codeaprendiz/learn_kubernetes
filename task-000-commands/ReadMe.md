@@ -47,7 +47,10 @@
 - [taint-----------------------------------------Update node 'node1' with a taint with key 'app' and value 'blue' and effect 'NoSchedule'.](#taint)
 
 
-
+```bash
+kubectl get nodes --show-labels
+kubectl get pods -o wide
+```
 
 
 ## apply
