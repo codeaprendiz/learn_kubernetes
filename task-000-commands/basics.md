@@ -880,13 +880,15 @@ Following are two states in the lifecycle of a pod while considering node affini
 When a pod is placed on a node. It consumes resources available to that node.
 It is the kubernetes-scheduler that decides which node a pod goes to. It takes into consideration,
 - amount of resources required by a pod
-- amount of resources available on the node    
+- amount of resources available on the node   
+
+The following table shows the amount of resources that a container in a pod requires to be scheduled. 
 
 **POD**
 
 | CPU  | Memory | Disk |
 | ------------- | ------------- |------------ |
-| 1 | 4 | 2 |
+| 0.5 | 256 Mi | 2 |
 
 **NODE*
 
@@ -898,3 +900,55 @@ It is the kubernetes-scheduler that decides which node a pod goes to. It takes i
 |  |   |  |
 | ------------- | ------------- | ------------- |
 | 10 | 10 | 10 |
+
+You can also set the default values for a namespace by using the following
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+    defaultRequest:
+      memory: 256Mi
+    type: Container
+```
+
+> NOTE: 1 CPU = 1000 m = 1 AWS vCPU = 1 GCP Core = 1 Azure Core
+
+> NOTE: 256 Mi = 256 Mebibyte
+
+> NOTE: 1 Gi = 1 Gibibyte
+
+** In the docker-world ( :) ) a docker container has no limit on the resources it can consume on a node. Say a container starts with 1 vCPU on a node. It can go up and consume
+as much resources as required suffocating the native processes on the node or other containers of resources. **
+
+Kubernetes sets a resource limit of 1 vCPU to containers if you do not specify explicitly.
+Kubernetes sets a resource limit of 512 Mi to containers if you do not specify explicitly.
+
+You can modify these values in pod defination file
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: app
+    image: images.my-company.example/app:v4
+    resources:
+      requests:
+        memory: "64Mi"    ## Minimum memory for each container
+        cpu: "250m"       ## Minimum cpu for each container
+      limits:
+        memory: "128Mi"   ## Maximum memory for each container
+        cpu: "500m"       # Maximum cpu for each container
+```
+
+What happens if a pod tries to go beyond the resource limit
+- w.r.t to CPU kubernetes throttles the CPU so a container cannot use more CPU than it has been assigned
+- however if a container tries to use more memory than its limit, it is allowed but if it tries to do it constantly
+  then the pod would be terminated
