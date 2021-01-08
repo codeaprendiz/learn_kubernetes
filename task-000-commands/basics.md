@@ -873,3 +873,28 @@ Following are two states in the lifecycle of a pod while considering node affini
   - If the type is `Ignored` then any changes in node affinity would not impact the pods once they are scheduled.
   - If the type is `Required` here then then the existing pods would be evicted if there are any chages in the node affinity of a node i.e. if the 
     label of a node `large` is removed, then the pod with this label `large` would also be evicted.
+    
+    
+## Resource Requirement and Limits
+
+When a pod is placed on a node. It consumes resources available to that node.
+It is the kubernetes-scheduler that decides which node a pod goes to. It takes into consideration,
+- amount of resources required by a pod
+- amount of resources available on the node    
+
+**POD**
+
+| CPU  | Memory | Disk |
+| ------------- | ------------- |------------ |
+| 1 | 4 | 2 |
+
+**NODE*
+
+| CPU  | Memory | Disk  |
+| ------------- | ------------- |  ------------- |
+| ------------- | ------------- |------------- |
+|   |   | |
+| ------------- | ------------- |------------- |
+|  |   |  |
+| ------------- | ------------- | ------------- |
+| 10 | 10 | 10 |
