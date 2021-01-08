@@ -50,7 +50,11 @@
 ```bash
 kubectl get nodes --show-labels
 kubectl get pods -o wide
-$ kubectl get --help | grep header
+
+$ kubectl get --help | grep namespaces
+   Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.
+kubectl get ds --all-namespaces
+$ kubectl get --help | grep -i header
       --no-headers=false: When using the default or custom-column output format, don't print headers (default print headers).
 ```
 
