@@ -25,6 +25,7 @@
 - [taints-and-tolerations](#taints-and-tolerations)
 - [node-affinity](#node-affinity)
 - [resource-requirement-and-limits](#resource-requirement-and-limits)
+- [static-pods](#static-pods)
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
@@ -1007,3 +1008,74 @@ What happens if a pod tries to go beyond the resource limit
 - w.r.t to CPU kubernetes throttles the CPU so a container cannot use more CPU than it has been assigned
 - however if a container tries to use more memory than its limit, it is allowed but if it tries to do it constantly
   then the pod would be terminated
+  
+  
+## static-pods
+
+The kubelet can manage the node independently as well.
+On the hosts we have `kubelet` as well as `docker` installed to run containers
+
+Suppose if there is not kubernetes cluster (so there is not kube-api-server). The one thing that
+the kubelet knows to do is to create pods but we don't have the kube-api-server here to provide 
+the pod details
+
+To create a pod we need the details of a pod in the pod defination file. But how do you provide the 
+- You can configure the `kubelet` to read the pod defination file from a directory on the server designated to 
+store information about pods and place the pods-defination files in this directory.
+- the kubelet periodically checks this directory for files, reads these files and creates pods on the host
+- it can also ensure that the pod stays alive. If the application crashes, the kubelet attempts to restart it
+- if you make any changes in any of the files in this directory, the kubelet then recreates the pods for those changes
+  to take effect
+- if you remove a pod from this directory then the pod is automatically deleted
+So these pods which are created by the kubelet on its own without the intervention of the api server
+or rest of the kubernetes componenets are known as static pods. Remember that you can only create pods in this way
+and not other kubernetes resources.
+
+So what is that designated folder and how do you configure it?
+Path can be any directory on the host and the location of that directory is passed in to the kubelet as an 
+option while running the service. The option is in `kubelet.service` file
+```bash
+ExecStat=/usr/local/bin/kubelet \
+--pod-manifest-path=/etc/kubernetes/manifests
+```
+
+Similarly, you can also do it using --config option to give path to a file
+```bash
+ExecStat=/usr/local/bin/kubelet \
+--config=kubeconfig.yaml
+```
+
+kubeconfig.yaml
+```yaml
+staticPodPath: /etc/kubernetes/manifests
+```
+
+Once the static pods are created you can view them using command
+```bash
+docker ps 
+```
+
+The way the kubelet works is that it can take requests for creating pods from different inputs.
+- The first is throught the pod defination file from the static pods folder
+- the second is through an http endpoint and that is how the kube-api-server provides input to the kubelet
+
+The kubelet can create both kind of pods: the static pods and the pods requested by the kube-api-server both at the same time.
+The kube-api-server is also aware of the static pods created by the kubelet. So if you run the command
+```bash
+$ kubectl get pods               
+NAME                      READY   STATUS    RESTARTS   AGE
+static-web-node-0123455     1/1     Running   1          6d20h
+```
+command then the static pod would also be listed. You can view the static pod in the list(it is actually a *mirror object*)
+but you can edit this object like the usual pods. You can only delete them by modifying the files from the 
+manifests folder.
+
+Why do we need to deploy the static pods?
+Since static pods are not part of the kubernetes-controle-plane (i.e. kube-api-server, etcd.. etc) you can use static pods to deploy the control-plane
+componenets itself as pods on a node
+- Start by installing kubelet on all the master nodes
+- then create pod defination files that uses docker-images of various control-plane components such as
+  the `api-server.yaml, controller-manager.yaml, etcd.yaml`
+- Then place these defination files in the designated manifest folder
+Then the kubelet takes cares of deploying the control-plane-components as pods on a cluster.
+That's how a kube-admin tool sets up a kubernetes cluster
