@@ -19,10 +19,12 @@
         - [nodeport service](#nodeport-service)
         - [clusterip service](#clusterip-service)
         - [load balancer service](#load-balancer-service)
+    - [daemonsets](#daemonsets)    
 - [How scheduling works](#how-scheduling-works)    
 - [Labels And Selectors](#labels-and-selectors)
 - [taints-and-tolerations](#taints-and-tolerations)
 - [node-affinity](#node-affinity)
+- [resource-requirement-and-limits](#resource-requirement-and-limits)
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
@@ -676,6 +678,59 @@ spec:
 ```
 
 
+
+### daemonsets
+
+It runs one copy of your pod on each node in your cluster.
+When ever a new node is added to the cluster, a replica of the pod is automatically added to that node.
+When a node is removed, the pod is automatically removed.
+
+Usage Cases
+- Monitoring Solution
+- Logging Solution
+- Kube-Proxy can be deployed as a daemon set as well.
+- networking solutions like `weave-net` requires an agent to be deployed on each node in the cluster
+
+daemonset-resource.yaml
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-elasticsearch
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-elasticsearch
+  template:
+    metadata:
+      labels:
+        name: fluentd-elasticsearch
+    spec:
+      containers:
+      - name: fluentd-elasticsearch
+        image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
+```
+
+- To create a daemonset you can run the following command
+```bash
+kubectl apply -f daemonset-resource.yaml
+```
+
+- To get the daemon set you can use the following command
+```bash
+kubectl get daemonset
+```
+
+- To get more details information you can use
+```bash
+kubectl describe daemonset monitoring-daemon
+```
+
+- So how does it work?
+  - The daemonset uses NodeAffinity rules and default scheduler to schedule pods on nodes.
+
+
+
 ## how-scheduling-works
 
 - Every pods has a field called `nodeName` that by default is not set. Kubernetes adds it automatically.
@@ -875,7 +930,7 @@ Following are two states in the lifecycle of a pod while considering node affini
     label of a node `large` is removed, then the pod with this label `large` would also be evicted.
     
     
-## Resource Requirement and Limits
+## resource-requirement-and-limits
 
 When a pod is placed on a node. It consumes resources available to that node.
 It is the kubernetes-scheduler that decides which node a pod goes to. It takes into consideration,

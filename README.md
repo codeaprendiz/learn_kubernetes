@@ -51,5 +51,6 @@
 - [task-024-node-affinity](local-mac/task-024-node-affinity)
 - [task-025-resource-requirement-and-limits](local-mac/task-025-resource-requirement-and-limits)
 - [task-026-editing-pods-and-deployments](local-mac/task-026-editing-pods-and-deployments)
+- [task-027-daemonsets](local-mac/task-027-daemonsets)
    
 

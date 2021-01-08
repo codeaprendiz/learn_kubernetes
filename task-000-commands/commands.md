@@ -50,6 +50,8 @@
 ```bash
 kubectl get nodes --show-labels
 kubectl get pods -o wide
+$ kubectl get --help | grep header
+      --no-headers=false: When using the default or custom-column output format, don't print headers (default print headers).
 ```
 
 
