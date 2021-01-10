@@ -48,6 +48,7 @@
 
 
 ```bash
+kubectl get events
 kubectl get nodes --show-labels
 kubectl get pods -o wide
 

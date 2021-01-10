@@ -26,6 +26,7 @@
 - [node-affinity](#node-affinity)
 - [resource-requirement-and-limits](#resource-requirement-and-limits)
 - [static-pods](#static-pods)
+- [multiple-schedulers](#multiple-schedulers)
 ## Kubernetes-Cluster
 - Set of nodes which may be physical or virtual
 - on premise or on cloud 
@@ -1079,3 +1080,55 @@ componenets itself as pods on a node
 - Then place these defination files in the designated manifest folder
 Then the kubelet takes cares of deploying the control-plane-components as pods on a cluster.
 That's how a kube-admin tool sets up a kubernetes cluster
+
+
+## multiple-schedulers
+
+[configure-multiple-schedulers](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
+
+When you decide to have your own scheduling algorithm to place pods on the nodes so that you can 
+add your own custom conditions and checks in it.
+
+You can write your own kubernetes scheduler program, package it and deploy it as your default scheduler or as an 
+additional scheduler in the kubernetes cluster.
+
+When deployed as a additional scheduler, all the other applications can be scheduler by the default scheduler and 
+you specific application can use the custom scheduler
+
+While creating a pod or a deployemnt you can instruct kubernetes to have the pod scheduled by 
+a specific scheduler.
+
+To deploy an additional scheduler you can use the same kubescheduler binary or a custom binary and set the name parameter
+as a custom name `my-custom-scheduler`
+```bash
+ExecStart=/usr/local/bin/kube-scheduler \\
+  --config=/etc/kubernetes/config/kube-scheduler.yaml \\
+  --scheduler-name=my-custom-scheduler
+```
+
+There is one more option you should be aware about `--leader-elect=[true|false]`
+This is used when you have multiple copies of your scheduler running on different master nodes then only one can be
+active at a time, that's when this option is used to elect a leader who  will lead the scheduling activity.
+To get multiple schedulers working you must either set this option to `false` if you don't have multiple masters. But in case you do 
+have multiple masters you can pass in an additional parameter  `--lock-object-name=my-custom-scheduler`, this is to
+differentiate the custom scheduler from the default during the leader election process.
+
+Now how to configure a pod to use the new my-custom-scheduler
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+  schedulerName: my-custom-scheduler
+```
+
+This way when the pod is created the right scheduler picks it up for scheduling.
+You can check if your pod was scheduled by the right scheduler by:
+```bash
+kubectl get events
+```
+
