@@ -53,5 +53,6 @@
 - [task-026-editing-pods-and-deployments](local-mac/task-026-editing-pods-and-deployments)
 - [task-027-daemonsets](local-mac/task-027-daemonsets)
 - [task-028-static-pods](local-mac/task-028-static-pods)
+- [task-029-multiple-schedulers](local-mac/task-029-multiple-schedulers)
    
 
