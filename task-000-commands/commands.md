@@ -48,6 +48,7 @@
 
 
 ```bash
+kubectl logs -f webapp-2 simple-webapp
 kubectl get events
 kubectl get nodes --show-labels
 kubectl get pods -o wide

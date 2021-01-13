@@ -54,5 +54,10 @@
 - [task-027-daemonsets](local-mac/task-027-daemonsets)
 - [task-028-static-pods](local-mac/task-028-static-pods)
 - [task-029-multiple-schedulers](local-mac/task-029-multiple-schedulers)
+
+
+### Logging And Monitoring
+- [task-030-metrics-server](local-mac/task-030-metrics-server)
+- [task-031-managing-logs](local-mac/task-031-managing-logs)
    
 
