@@ -61,3 +61,5 @@
 - [task-031-managing-logs](local-mac/task-031-managing-logs)
    
 
+### Application Lifecycle Management
+- [task-031-rolling-updates-and-rollback](local-mac/application-life-cycle-management/task-031-rolling-updates-and-rollback)

@@ -48,6 +48,9 @@
 
 
 ```bash
+kubectl rollout undo deployment/myapp-deployment
+kubectl rollout status deployment/myapp-deployment
+kubectl rollout history deployment/myapp-deployment
 kubectl logs -f webapp-2 simple-webapp
 kubectl get events
 kubectl get nodes --show-labels
