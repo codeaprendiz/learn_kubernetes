@@ -63,3 +63,4 @@
 
 ### Application Lifecycle Management
 - [task-032-rolling-updates-and-rollback](local-mac/application-life-cycle-management/task-032-rolling-updates-and-rollback)
+- [task-033-commands-and-arguments-in-kubernetes](local-mac/application-life-cycle-management/task-033-commands-and-arguments-in-kubernetes)
