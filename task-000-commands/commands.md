@@ -48,6 +48,13 @@
 
 
 ```bash
+kubectl create configmap \
+  app-config --from-literal=APP_NAME=test-app \
+             --from-literal=APP_ENV=dev
+
+kubectl create configmap \
+  app-config --from-file=app_config.properties \
+             
 kubectl rollout undo deployment/myapp-deployment
 kubectl rollout status deployment/myapp-deployment
 kubectl rollout history deployment/myapp-deployment
