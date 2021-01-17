@@ -65,3 +65,4 @@
 - [task-032-rolling-updates-and-rollback](local-mac/application-life-cycle-management/task-032-rolling-updates-and-rollback)
 - [task-033-commands-and-arguments-in-kubernetes](local-mac/application-life-cycle-management/task-033-commands-and-arguments)
 - [task-034-configuring-environment-variables-in-application](local-mac/application-life-cycle-management/task-034-configuring-environment-variables-in-application)
+- [task-035-configuring-secrets-in-application](local-mac/application-life-cycle-management/task-035-configuring-secrets-in-application)

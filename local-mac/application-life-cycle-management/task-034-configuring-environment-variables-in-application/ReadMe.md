@@ -77,6 +77,33 @@ kubectl get configmaps
 
 ### How to inject the config map in pods
 
+- Env
+```yaml
+    envFrom:
+      - configMapRef:
+          name: app-config
+```
+
+- Single Env
+```yaml
+env:
+  name: APP_COLOR
+  valueFrom:
+    configMapKeyRef:
+      name: app-config
+      key: APP_COLOR
+```
+
+- Volume
+
+```yaml
+volumes:
+- name: app-config-volume
+  secret:
+    secretName: app-config
+```
+
+For example 
 - Injecting the above `app-configmap` in the pod
 ```yaml
 apiVersion: v1
