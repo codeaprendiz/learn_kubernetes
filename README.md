@@ -67,3 +67,4 @@
 - [task-034-configuring-environment-variables-in-application](local-mac/application-life-cycle-management/task-034-configuring-environment-variables-in-application)
 - [task-035-configuring-secrets-in-application](local-mac/application-life-cycle-management/task-035-configuring-secrets-in-application)
 - [task-036-multi-container-pods](local-mac/application-life-cycle-management/task-036-multi-container-pods)
+- [task-037-init-containers](local-mac/application-life-cycle-management/task-037-init-containers)
