@@ -5,9 +5,12 @@
     - [current-context---------------------------To display the current context](#current-context)
     - [view--------------------------------------To display merged kubeconfig settings or a specified kubeconfig file.](#view)
     - [set-credentials---------------------------To set a user 'dave' entry in kubeconfig](#set-credentials)
+- [cordon----------------------------------------Mark node as unschedulable.](#cordon)
 - [create----------------------------------------To create a namespace dev-ns](#create)
     - [--dry-run---------------------------------Generate Deployment YAML file (-o yaml). Don't create it(--dry-run) with 4 Replicas (--replicas=4)](#--dry-run)
     - [-f----------------------------------------Create a pod using the data in pod.json.](#-f)
+    - [--from-file----------------------------Create a configmap based on aspecified literal value](#)    
+    - [--from-literal----------------------------Create a configmap based on aspecified literal value](#--from-literal)
     - [--image-----------------------------------Create a deployment using nginx image, Create a new ClusterIP service named my-cs](#--image)
     - [-o yaml-----------------------------------Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)](#-o-yaml)
 - [delete----------------------------------------To delete deployment with name 'www' from default namespace](#delete)
@@ -49,15 +52,7 @@
 - [taint-----------------------------------------Update node 'node1' with a taint with key 'app' and value 'blue' and effect 'NoSchedule'.](#taint)
 - [uncordon--------------------------------------Mark node as schedulable.](#uncordon)
 
-```bash
-kubectl cordon node
-kubectl create configmap \
-  app-config --from-literal=APP_NAME=test-app \
-             --from-literal=APP_ENV=dev
-
-kubectl create configmap \
-  app-config --from-file=app_config.properties \
-             
+```bash         
 kubectl rollout undo deployment/myapp-deployment
 kubectl rollout status deployment/myapp-deployment
 kubectl rollout history deployment/myapp-deployment
@@ -111,6 +106,16 @@ https://kubernetes.docker.internal:6443
 kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true
 ```
 
+## cordon
+[cordon](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#cordon)
+
+- Mark node as unschedulable.
+
+```bash
+$ kubectl cordon node-01
+```
+
+
 ## create
 [create](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#create)
 
@@ -129,6 +134,22 @@ kubectl create deployment --image=nginx nginx --dry-run=client --replicas=4 -o y
 - Create a pod using the data in pod.json.
 ```bash
 kubectl create -f ./pod.json
+```
+
+### --from-file
+- Create a configmap based on a file 
+```bash
+kubectl create configmap \
+  app-config --from-file=app_config.properties
+```
+
+
+### --from-literal
+- Create a configmap based on a specified literal value. 
+```bash
+kubectl create configmap \
+  app-config --from-literal=APP_NAME=test-app \
+             --from-literal=APP_ENV=dev
 ```
 
 ### --image
