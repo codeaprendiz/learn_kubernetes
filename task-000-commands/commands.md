@@ -18,6 +18,8 @@
 - [describe](#describe)
     - [pod---------------------------------------To describe a pod with name 'traefik-nb8p2' in ingress namespace](#pod)
     - [node--------------------------------------To get the Taints on master node](#node)
+- [drain](#drain)
+    - [node--------------------------------------Drain node in preparation for maintenance](#node)
 - [edit------------------------------------------To change the image of nginx deployment to 1.9.0](#edit)
 - [exec------------------------------------------To list all the keys stored by kubernetes](#exec) 
 - [explain](#explain)
@@ -45,9 +47,10 @@
 - [scale-----------------------------------------To scale a deployment named httpd-frontend to 3 replicas](#scale)
 - [set-------------------------------------------Set a deployment's nginx container image to nginx:1.9.1](#set)
 - [taint-----------------------------------------Update node 'node1' with a taint with key 'app' and value 'blue' and effect 'NoSchedule'.](#taint)
-
+- [uncordon--------------------------------------Mark node as schedulable.](#uncordon)
 
 ```bash
+kubectl cordon node
 kubectl create configmap \
   app-config --from-literal=APP_NAME=test-app \
              --from-literal=APP_ENV=dev
@@ -205,6 +208,22 @@ Events:          <none>
 ```bash
 $ kubectl describe nodes master | grep -i taints
 ```
+
+
+## drain
+[drain](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#drain)
+
+### node 
+
+- Drain node in preparation for maintenance. The given node will be marked unschedulable to prevent new pods from arriving.
+- drain waits for graceful termination. You should not operate on the machine until the command completes.
+- When you are ready to put the node back into service, use kubectl uncordon, which will make the node schedulable again.
+
+```bash
+$ kubectl drain node-01
+```
+
+
 
 ## edit
 [edit](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#edit)
@@ -452,4 +471,13 @@ $ kubectl taint nodes node1 app=blue:NoSchedule
   `kubectl describe node master | grep -i taint`)
 ```bash
 $ kubectl taint nodes foo dedicated:NoSchedule-
+```
+
+
+## uncordon
+[uncordon](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#uncordon)
+
+- Mark node as schedulable.
+```bash
+$ kubectl uncordon node-01
 ```
