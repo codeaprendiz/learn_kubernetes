@@ -40,25 +40,27 @@
 - [task-012-PodSecurityPolicy](gcp/task-012-PodSecurityPolicy)
 
 
-### Basics
-- [task-017-pods](local-mac/task-017-pods)
-- [task-018-replicaset](local-mac/task-018-replicaset)
-- [task-019-deployment](local-mac/task-019-deployment)
-- [task-020-namespaces](local-mac/task-020-namespaces)
-- [task-021-services](local-mac/task-021-services)
-- [task-022-labels-and-selectors](local-mac/task-022-labels-and-selectors)
-- [task-023-taints-and-tolerations](local-mac/task-023-taints-and-tolerations)
-- [task-024-node-affinity](local-mac/task-024-node-affinity)
-- [task-025-resource-requirement-and-limits](local-mac/task-025-resource-requirement-and-limits)
-- [task-026-editing-pods-and-deployments](local-mac/task-026-editing-pods-and-deployments)
-- [task-027-daemonsets](local-mac/task-027-daemonsets)
-- [task-028-static-pods](local-mac/task-028-static-pods)
-- [task-029-multiple-schedulers](local-mac/task-029-multiple-schedulers)
+### Core Concepts
+- [task-017-pods](local-mac/core-concepts/task-017-pods)
+- [task-018-replicaset](local-mac/core-concepts/task-018-replicaset)
+- [task-019-deployment](local-mac/core-concepts/task-019-deployment)
+- [task-020-namespaces](local-mac/core-concepts/task-020-namespaces)
+- [task-021-services](local-mac/core-concepts/task-021-services)
+
+### Scheduling
+- [task-022-labels-and-selectors](local-mac/scheduling/task-022-labels-and-selectors)
+- [task-023-taints-and-tolerations](local-mac/scheduling/task-023-taints-and-tolerations)
+- [task-024-node-affinity](local-mac/scheduling/task-024-node-affinity)
+- [task-025-resource-requirement-and-limits](local-mac/scheduling/task-025-resource-requirement-and-limits)
+- [task-026-editing-pods-and-deployments](local-mac/scheduling/task-026-editing-pods-and-deployments)
+- [task-027-daemonsets](local-mac/scheduling/task-027-daemonsets)
+- [task-028-static-pods](local-mac/scheduling/task-028-static-pods)
+- [task-029-multiple-schedulers](local-mac/scheduling/task-029-multiple-schedulers)
 
 
 ### Logging And Monitoring
-- [task-030-metrics-server](local-mac/task-030-metrics-server)
-- [task-031-managing-logs](local-mac/task-031-managing-logs)
+- [task-030-metrics-server](local-mac/logging-and-monitoring/task-030-metrics-server)
+- [task-031-managing-logs](local-mac/logging-and-monitoring/task-031-managing-logs)
    
 
 ### Application Lifecycle Management
