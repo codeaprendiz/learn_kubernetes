@@ -63,6 +63,7 @@
 
 ```bash         
 
+controlplane $ kubectl drain node01 --ignore-daemonsets
 
 ```
 

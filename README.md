@@ -70,3 +70,7 @@
 - [task-035-configuring-secrets-in-application](local-mac/application-life-cycle-management/task-035-configuring-secrets-in-application)
 - [task-036-multi-container-pods](local-mac/application-life-cycle-management/task-036-multi-container-pods)
 - [task-037-init-containers](local-mac/application-life-cycle-management/task-037-init-containers)
+
+### Cluster Maintenance
+
+- [task-038-os-upgrades](local-mac/cluster-maintenance/task-038-os-upgrades)
