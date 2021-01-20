@@ -74,3 +74,4 @@
 ### Cluster Maintenance
 
 - [task-038-os-upgrades](local-mac/cluster-maintenance/task-038-os-upgrades)
+- [task-039-cluster-upgrades-kubeadm](local-mac/cluster-maintenance/task-039-cluster-upgrades-kubeadm)
