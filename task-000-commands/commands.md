@@ -29,11 +29,16 @@
     [--recursive----------------------------------------------------------------Print the fields of fields](#--recursive)
 - [expose----------------------------------------Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379](#expose)
 - [get](#get)
+    - [events------------------------------------To list all events you can use](#events)
+    - [--help------------------------------------To get help!](#--help)
     - [namespace---------------------------------To get all the namespace resources](#namespace)
         - [--no-headers--------------------------To get all the pods in given namespace and do not give header columns](#--no-headers)
+    - [nodes--------------------------------------To get all the nodes in kubernetes cluster](#nodes)
+        - [--show-label---------------------------To show the labels present on the nodes](#--show-labels)      
     - [pod---------------------------------------To get all the pod resources in namespace ingress](#pod)
         - [--all-namespaces----------------------To view all the pods from all namespaces](#--all-namespaces)
         - [-n------------------------------------To view the pods in kube-system namespace](#-n)
+        - [-o wide-------------------------------To check which pod is present in which particular node](#-o-wide)
         - [--selector or -l ---------------------You can filter the list using a label selector and the --selector flag](#--selector-or-l)
         - [--show-labels-------------------------To list the existing pods and also show the labels in default namespace](#--show-labels)
 - [label-----------------------------------------Update the label on node node-1 with key 'size' and value 'Large'](#label)
@@ -41,6 +46,10 @@
     - [since-------------------------------------To get the output of logs of a given resource like pod since last one hour](#since)
     - [-f----------------------------------------Begin streaming the logs of the ruby container in pod web-1](#-f)
 - [replace---------------------------------------Replace a pod using the data in pod.json.](#replace)
+- [rollout](#rollout)
+    - [history-----------------------------------View previous rollout revisions and configurations.](#history)
+    - [status------------------------------------Check the rollout status of deployment](#status)
+    - [undo--------------------------------------Rollback to a previous rollout](#undo)
 - [run](#run)
     - [--dry-run---------------------------------To NOT create nginx pod, only generate yaml ](#--dry-run)
     - [--image-----------------------------------To create NGINX pod](#--image)
@@ -53,19 +62,8 @@
 - [uncordon--------------------------------------Mark node as schedulable.](#uncordon)
 
 ```bash         
-kubectl rollout undo deployment/myapp-deployment
-kubectl rollout status deployment/myapp-deployment
-kubectl rollout history deployment/myapp-deployment
-kubectl logs -f webapp-2 simple-webapp
-kubectl get events
-kubectl get nodes --show-labels
-kubectl get pods -o wide
 
-$ kubectl get --help | grep namespaces
-   Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.
-kubectl get ds --all-namespaces
-$ kubectl get --help | grep -i header
-      --no-headers=false: When using the default or custom-column output format, don't print headers (default print headers).
+
 ```
 
 
@@ -302,6 +300,33 @@ kubectl expose pod nginx --port=80 --name nginx-service --type=NodePort --dry-ru
 
 ## get
 [get](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get)
+
+### events
+- Events such as the ones you saw at the end of kubectl describe pod are persisted in etcd and provide high-level information on what is happening in the cluster. To list all events you can use
+```bash
+$ kubectl get events
+```
+
+### --help
+- To get help!
+```bash
+$  kubectl get --help
+```
+
+- To find option which we need for `namespaces`
+```bash
+$ kubectl get --help | grep namespaces
+   Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.
+kubectl get ds --all-namespaces
+```
+
+- To find what is the argument for no-headers in kubernetes commands
+```bash
+$ kubectl get --help | grep -i header
+      --no-headers=false: When using the default or custom-column output format, don't print headers (default print headers).
+```
+
+
 ### namespace
 - To get all the namespace resources
 ```bash
@@ -317,6 +342,18 @@ default                Active   9d
 $ kubectl get pods -n kube-system --no-headers
 coredns-864fccfb95-gwtl4                 1/1   Running   14    78d
 coredns-864fccfb95-qqlmg                 1/1   Running   14    78d
+```
+
+### nodes
+- To get all the nodes in the kubernetes cluster
+```bash
+$ kubectl get nodes
+```
+
+#### --show-labels
+- To show the labels present on the nodes
+```bash
+$ kubectl get nodes --show-labels
 ```
 
 ### pod
@@ -360,6 +397,14 @@ NAME                                     READY   STATUS    RESTARTS   AGE
 coredns-864fccfb95-gwtl4                 1/1     Running   14         78d
 coredns-864fccfb95-qqlmg                 1/1     Running   14         78d
 ```
+
+#### -o-wide
+
+- To check which pod is present in which particular node
+```bash
+$ kubectl get pods -o wide
+```
+
 
 #### --selector-or-l
 
@@ -410,11 +455,51 @@ kubectl logs -f -c ruby web-1
 kubectl logs -f -lapp=nginx --all-containers=true
 ```
 
+- Begin stream logs of `simple-webapp` container in pod `webapp-2` having multiple containers
+
+```bash
+kubectl logs -f webapp-2 simple-webapp
+```
+
 ## replace
 [replace](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#replace)
 - Replace a pod using the data in pod.json.
 ```bash
 kubectl replace -f ./pod.json
+```
+
+## rollout
+[rollout](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#rollout)
+- Manage the rollout of a resource
+  - Valid resource types include:
+     - deployments
+     - daemonsets
+     - statefulsets
+
+### history
+
+- View previous rollout revisions and configurations. In following case we are checking the
+  rollout history of deployment.
+
+```bash
+kubectl rollout history deployment/myapp-deployment
+```
+
+     
+### status
+
+- Show the status of the rollout.
+- By default 'rollout status' will watch the status of the latest rollout until it's done.
+- Check the rollout status of deployment
+```bash
+$ kubectl rollout status deployment/myapp-deployment
+```
+     
+### undo
+
+- Rollback to a previous rollout. In the following case roll back to previous deployment     
+```bash
+$ kubectl rollout undo deployment/myapp-deployment
 ```
 
 ## run
