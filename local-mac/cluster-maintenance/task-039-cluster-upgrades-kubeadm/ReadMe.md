@@ -67,4 +67,112 @@ controlplane $ sudo kubeadm upgrade plan
 - Apply the upgrade
 ```bash
 controlplane $ sudo kubeadm upgrade apply v1.19.6
+.
+[upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.19.6". Enjoy!
+```
+
+- Upgrade additional control plane nodes
+```bash
+$ sudo kubeadm upgrade node
+```
+
+- Drain the control plane node. Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+```bash
+controlplane $ kubectl drain controlplane --ignore-daemonsetsnode/controlplane cordoned
+WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-flannel-ds-amd64-4qxgq, kube-system/kube-proxy-hvpmp
+evicting pod kube-system/coredns-f9fd979d6-6lrsx
+pod/coredns-f9fd979d6-6lrsx evicted
+node/controlplane evicted
+```
+
+- Upgrade kubelet and kubectl
+```bash
+$ apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.19.6-00 kubectl=1.19.6-00 && \
+apt-mark hold kubelet kubectl
+
+$ apt-get update && \
+apt-get install -y --allow-change-held-packages kubelet=1.19.6-00 kubectl=1.19.6-00
+```
+
+- Restart the kubelet
+```bash
+controlplane $ sudo systemctl daemon-reload
+controlplane $ sudo systemctl restart kubelet
+```
+
+- Uncordon the control plane node
+```bash
+controlplane $ kubectl uncordon controlplane
+node/controlplane uncordoned
+```
+
+- Check the version now
+```bash
+controlplane $ kubectl get nodes
+NAME           STATUS   ROLES    AGE   VERSION
+controlplane   Ready    master   24m   v1.19.6
+node01         Ready    <none>   23m   v1.18.0
+```
+
+### Upgrade worker nodes
+
+- Upgrade kubeadm
+```bash
+node01 $ apt-mark unhold kubeadm && \
+> apt-get update && apt-get install -y kubeadm=1.19.6-00 && \
+> apt-mark hold kubeadm
+
+node01 $ apt-get update && \
+> apt-get install -y --allow-change-held-packages kubeadm=1.19.6-00
+
+```
+
+- Upgrade the kubelet configuration
+```bash
+node01 $ sudo kubeadm upgrade node
+```
+
+- Drain the node. Note we are running this on controlplane node.
+```bash
+controlplane $ kubectl drain node01 --ignore-daemonsets
+node/node01 cordoned
+WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-flannel-ds-amd64-clgqs, kube-system/kube-keepalived-vip-pgdzt, kube-system/kube-proxy-qsxw2
+evicting pod kube-system/katacoda-cloud-provider-58f89f7d9-9wlxv
+evicting pod kube-system/coredns-f9fd979d6-4fn69
+evicting pod kube-system/coredns-f9fd979d6-8d9m4
+pod/katacoda-cloud-provider-58f89f7d9-9wlxv evicted
+pod/coredns-f9fd979d6-8d9m4 evicted
+pod/coredns-f9fd979d6-4fn69 evicted
+node/node01 evicted
+```
+
+- Upgrade kubelet and kubectl
+```bash
+node01 $ apt-mark unhold kubelet kubectl && \
+> apt-get update && apt-get install -y kubelet=1.19.6-00 kubectl=1.19.6-00 && \
+> apt-mark hold kubelet kubectl
+
+node01 $ apt-get update && \
+> apt-get install -y --allow-change-held-packages kubelet=1.19.6-00 kubectl=1.19.6-00
+```
+
+- Restart the kubelet
+```bash
+node01 $ sudo systemctl daemon-reload
+node01 $ sudo systemctl restart kubelet
+```
+
+- Uncordon the node
+```bash
+controlplane $ kubectl uncordon node01
+node/node01 uncordoned
+```
+
+- Verify the status of the cluster
+```bash
+controlplane $ kubectl get nodes
+NAME           STATUS   ROLES    AGE   VERSION
+controlplane   Ready    master   30m   v1.19.6
+node01         Ready    <none>   30m   v1.19.6
 ```
