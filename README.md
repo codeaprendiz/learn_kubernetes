@@ -76,3 +76,10 @@
 - [task-038-os-upgrades](local-mac/cluster-maintenance/task-038-os-upgrades)
 - [task-039-cluster-upgrades-kubeadm](local-mac/cluster-maintenance/task-039-cluster-upgrades-kubeadm)
 - [task-040-cluster-upgrade](local-mac/cluster-maintenance/task-040-cluster-upgrade)
+- [task-041-backup-and-restore](local-mac/cluster-maintenance/task-041-backup-and-restore)
+
+
+
+Credits
+- [certified-kubernetes-administrator-course](https://github.com/kodekloudhub/certified-kubernetes-administrator-course)
+- [https://kubernetes.io/docs/home/](https://kubernetes.io/docs/home/)

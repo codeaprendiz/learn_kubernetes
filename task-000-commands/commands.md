@@ -65,6 +65,7 @@
 
 controlplane $ kubectl drain node01 --ignore-daemonsets
 
+kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml
 ```
 
 
