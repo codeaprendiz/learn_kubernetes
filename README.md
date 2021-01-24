@@ -79,6 +79,11 @@
 - [task-041-backup-and-restore](local-mac/cluster-maintenance/task-041-backup-and-restore)
 
 
+### Security
+
+- [task-042-authentication](local-mac/security/task-042-authentication)
+
+
 
 Credits
 - [certified-kubernetes-administrator-course](https://github.com/kodekloudhub/certified-kubernetes-administrator-course)

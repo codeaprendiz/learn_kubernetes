@@ -77,6 +77,7 @@ kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml
 $ kubectl apply -f resources.yaml
 deployment.apps/www created
 service/www created
+kubectl create serviceaccount <account-name>
 ```
 
 ## config
