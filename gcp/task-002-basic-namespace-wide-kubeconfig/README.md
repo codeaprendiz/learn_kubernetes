@@ -43,7 +43,7 @@ Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.5", GitCom
 Server Version: version.Info{Major:"1", Minor:"14+", GitVersion:"v1.14.10-gke.27", GitCommit:"145f9e21a4515947d6fb10819e5a336aff1b6959", GitTreeState:"clean", BuildDate:"2020-02-21T18:01:40Z", GoVersion:"go1.12.12b4", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
-- Try creating a resource in namespace 'development'
+- Try creating a resource in namespace `development`
 ```bash
 $ kubectl apply -f www.yaml
 deployment.apps/www created
