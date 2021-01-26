@@ -82,7 +82,7 @@
 ### Security
 
 - [task-042-authentication](local-mac/security/task-042-authentication)
-
+- [task-043-tls-in-k8s-certificate-creation](local-mac/security/task-043-tls-in-k8s-certificate-creation)
 
 
 Credits
