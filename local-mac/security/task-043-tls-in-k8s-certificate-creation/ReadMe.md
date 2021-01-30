@@ -435,3 +435,143 @@ echo "encoded - certificate" | base64 --decode
 
 
 NOTE: The certificate related operations are carried by the controller-manager 
+
+
+
+### A new member akshay joined our team. He requires access to our cluster. The Certificate Signing Request is at the /root location.
+
+Inspect it
+
+```bash
+controlplane $ pwd
+/root
+controlplane $ ls
+akshay.csr  akshay.key 
+```
+
+# Create a CertificateSigningRequest object with the name akshay with the contents of the akshay.csr file
+
+[certificate-signing-request](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/)
+
+- base64 the csr key
+```bash
+cat akshay.csr | base64
+LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBN
+QTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJD
+Z0tDQVFFQXFNc3JWVVF6c2ZWS0ZYUFBxU0x4YXNkYmY3TEJodjR0WnRtVmpFS1lYd0N1CjQ2UlFP
+eHV6djlldk1kZUpyTExLMU5KRzRFRXVqY3N5Sy92MWlvMXJnUFM5RHR3YzdKaXYxUEdWNWVHM0Fy
+cUUKZUQxWGY4SEdPYWJkbXNZemFyaVozNk1ON2tQd2ZnSm9GL294NTU1MVVZaVJzWHdJN1lYdTN3
+ZXIxcnJLVHgwdAppRnk0dUJxQ1JnVTkvcjJobzFIUEcvNnlFeHBBQjVVMVFGd21ySnlyempDSVhE
+WkdLdVNxWWFHSXpZTER4VzkrCnF0YUdFWVpwMy9ENmloejJoSmppMFk2L2d6MXFZN3c3Z0N2cmRz
+M01mNEZGdzU2eWFlaEtYdDZtNU04WTlLekUKejR4alhtSU1mcG43Y0xLSUwycHY2Q2ZkZFdLZ3pU
+RWlIbStobHZCN0l3SURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBRkRVSVNtS2cr
+dnU5c3hndGlpcUoyRGdIQ2dRWDVjVnkrc0NkVC9uYnkwRHBYcERYN1pyCkVnaDY5T0QrWlErSDJX
+VjJrclhxY25JRTJPdTQxd0MyTU5UeHZkK3VrVk90YkRLWncrODdMVmhJNjNUNmc5WVoKbGJNenF4
+ZGp0MFMvMkpnUTZlVUFWdTlVeHJ4aVdhd3dFd1QydzIzMFc3eXZnQlh3SFBxUjNhelRnRVVYZFVz
+cAp5UEs2bmFLbGJhRXEyblBFWTl1bHd2U2JVMjFJQWZ3dDVJZ3J6elZJYmRlZlhNVGxNRnFFamRX
+STliTGNGNTVQCnFoZmIwNGF4RmVmL2FZY0tlZ2wrYWxjajU0Q3VZcUxreVlNVUxVOWRQSlJNaTBE
+YmVDSUV5NVdhWHNaYS9VT1kKRGRUYndvS0JCKzgrelc3R2gxN3VQcDBSVUJNdEEyZjAxOE09Ci0t
+LS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+```
+
+```yaml
+apiVersion: certificates.k8s.io/v1beta1
+kind: CertificateSigningRequest
+metadata:
+  name: akshay
+spec:
+  groups:
+  - system:authenticated
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXFNc3JWVVF6c2ZWS0ZYUFBxU0x4YXNkYmY3TEJodjR0WnRtVmpFS1lYd0N1CjQ2UlFPeHV6djlldk1kZUpyTExLMU5KRzRFRXVqY3N5Sy92MWlvMXJnUFM5RHR3YzdKaXYxUEdWNWVHM0FycUUKZUQxWGY4SEdPYWJkbXNZemFyaVozNk1ON2tQd2ZnSm9GL294NTU1MVVZaVJzWHdJN1lYdTN3ZXIxcnJLVHgwdAppRnk0dUJxQ1JnVTkvcjJobzFIUEcvNnlFeHBBQjVVMVFGd21ySnlyempDSVhEWkdLdVNxWWFHSXpZTER4VzkrCnF0YUdFWVpwMy9ENmloejJoSmppMFk2L2d6MXFZN3c3Z0N2cmRzM01mNEZGdzU2eWFlaEtYdDZtNU04WTlLekUKejR4alhtSU1mcG43Y0xLSUwycHY2Q2ZkZFdLZ3pURWlIbStobHZCN0l3SURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBRkRVSVNtS2crdnU5c3hndGlpcUoyRGdIQ2dRWDVjVnkrc0NkVC9uYnkwRHBYcERYN1pyCkVnaDY5T0QrWlErSDJXVjJrclhxY25JRTJPdTQxd0MyTU5UeHZkK3VrVk90YkRLWncrODdMVmhJNjNUNmc5WVoKbGJNenF4ZGp0MFMvMkpnUTZlVUFWdTlVeHJ4aVdhd3dFd1QydzIzMFc3eXZnQlh3SFBxUjNhelRnRVVYZFVzcAp5UEs2bmFLbGJhRXEyblBFWTl1bHd2U2JVMjFJQWZ3dDVJZ3J6elZJYmRlZlhNVGxNRnFFamRXSTliTGNGNTVQCnFoZmIwNGF4RmVmL2FZY0tlZ2wrYWxjajU0Q3VZcUxreVlNVUxVOWRQSlJNaTBEYmVDSUV5NVdhWHNaYS9VT1kKRGRUYndvS0JCKzgrelc3R2gxN3VQcDBSVUJNdEEyZjAxOE09Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  usages:
+  - digital signature
+  - key encipherment
+  - server auth
+```
+
+```bash
+## check version of k8s
+controlplane $ kubectl get nodes
+NAME           STATUS   ROLES    AGE    VERSION
+controlplane   Ready    master   124m   v1.18.0
+node01         Ready    <none>   124m   v1.18.0
+
+## check corresponding documentation
+
+cat <<EOF | kubectl apply -f -
+apiVersion: certificates.k8s.io/v1beta1
+kind: CertificateSigningRequest
+metadata:
+  name: akshay
+spec:
+  groups:
+  - system:authenticated
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXFNc3JWVVF6c2ZWS0ZYUFBxU0x4YXNkYmY3TEJodjR0WnRtVmpFS1lYd0N1CjQ2UlFPeHV6djlldk1kZUpyTExLMU5KRzRFRXVqY3N5Sy92MWlvMXJnUFM5RHR3YzdKaXYxUEdWNWVHM0FycUUKZUQxWGY4SEdPYWJkbXNZemFyaVozNk1ON2tQd2ZnSm9GL294NTU1MVVZaVJzWHdJN1lYdTN3ZXIxcnJLVHgwdAppRnk0dUJxQ1JnVTkvcjJobzFIUEcvNnlFeHBBQjVVMVFGd21ySnlyempDSVhEWkdLdVNxWWFHSXpZTER4VzkrCnF0YUdFWVpwMy9ENmloejJoSmppMFk2L2d6MXFZN3c3Z0N2cmRzM01mNEZGdzU2eWFlaEtYdDZtNU04WTlLekUKejR4alhtSU1mcG43Y0xLSUwycHY2Q2ZkZFdLZ3pURWlIbStobHZCN0l3SURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBRkRVSVNtS2crdnU5c3hndGlpcUoyRGdIQ2dRWDVjVnkrc0NkVC9uYnkwRHBYcERYN1pyCkVnaDY5T0QrWlErSDJXVjJrclhxY25JRTJPdTQxd0MyTU5UeHZkK3VrVk90YkRLWncrODdMVmhJNjNUNmc5WVoKbGJNenF4ZGp0MFMvMkpnUTZlVUFWdTlVeHJ4aVdhd3dFd1QydzIzMFc3eXZnQlh3SFBxUjNhelRnRVVYZFVzcAp5UEs2bmFLbGJhRXEyblBFWTl1bHd2U2JVMjFJQWZ3dDVJZ3J6elZJYmRlZlhNVGxNRnFFamRXSTliTGNGNTVQCnFoZmIwNGF4RmVmL2FZY0tlZ2wrYWxjajU0Q3VZcUxreVlNVUxVOWRQSlJNaTBEYmVDSUV5NVdhWHNaYS9VT1kKRGRUYndvS0JCKzgrelc3R2gxN3VQcDBSVUJNdEEyZjAxOE09Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  usages:
+  - client auth
+EOF
+certificatesigningrequest.certificates.k8s.io/john created
+```
+
+### What is the Condition of the newly created Certificate Signing Request object?
+
+```bash
+controlplane $ kubectl get csr
+NAME     AGE   SIGNERNAME                     REQUESTOR          CONDITION
+akshay   33s   kubernetes.io/legacy-unknown   kubernetes-admin   Pending
+```
+
+### Approve the CSR Request
+
+```bash
+controlplane $ kubectl certificate approve akshay
+certificatesigningrequest.certificates.k8s.io/akshay approved
+```
+
+### How many CSR requests are available on the cluster?
+
+Including approved and pending
+
+
+
+```bash
+controlplane $ kubectl get csr
+NAME     AGE     SIGNERNAME                     REQUESTOR          CONDITION
+akshay   2m33s   kubernetes.io/legacy-unknown   kubernetes-admin   Approved,Issued
+```
+
+### Who requested the csr-* request?
+
+```bash
+kubernetes-admin
+```
+
+### During a routine check you realized that there is a new CSR request in place. What is the name of this request?
+
+```bash
+controlplane $ kubectl get csr
+NAME          AGE    SIGNERNAME                     REQUESTOR          CONDITION
+agent-smith   22s    kubernetes.io/legacy-unknown   agent-x            Pending
+akshay        5m7s   kubernetes.io/legacy-unknown   kubernetes-admin   Approved,Issued
+```
+
+### Hmmm.. You are not aware of a request coming in. What groups is this CSR requesting access to?
+    
+    
+Check the details about the request. Preferebly in YAML.
+
+```bash
+controlplane $ kubectl get csr agent-smith -o yaml | egrep -i "group" -A 2
+  groups:
+  - system:masters
+  - system:authenticated
+```    
+
+### That doesn't look very right. Reject that request.
+
+```bash
+$ kubectl certificate deny agent-smith
+certificatesigningrequest.certificates.k8s.io/agent-smith denied
+
+```
+    
