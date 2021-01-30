@@ -350,3 +350,88 @@ I0130 11:02:49.916463       1 controller.go:130] OpenAPI AggregationController: 
 I0130 11:02:49.916490       1 controller.go:130] OpenAPI AggregationController: action for item k8s_internal_local_delegation_chain_0000000000: Nothing (removed from the queue).
 I0130 11:02:49.943997       1 storage_scheduling.go:143] all system priority classes are created successfully or already exist.
 ```
+
+### What is a CA Server or CA
+
+The CA is generally a pair of key and certificate file generated.
+
+Whoever gains access to these files can sign any certificate for the kubernetes environment.
+They can create as many users they want, with whatever priviledge's they want.
+
+So these files need to be protected in a safe environment. The server where these
+certificate files are stored is called as CA Server (Usually the master node)
+
+
+Kubernetes has certificate API using which you can send request to kubernetes to sign the certificates.
+  
+**How does this happen**
+
+A user first creates a key
+
+```bash
+$ openssl genrsa -out jane.key 2048
+```
+
+Generate the CSR using hte key with the name of the user on the same
+
+
+```bash
+$ openssl req -new -key jane.key -subj "/CN=jane" -out jane.csr
+```
+
+
+Get the base64 of the csr
+
+```bash
+$ cat jane.csr | base64              
+LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZEQ0NBVHdDQVFBd0R6RU5NQXNHQTFVRUF3d0VhbUZ1WlRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRApnZ0VQQURDQ0FRb0NnZ0VCQU12UWd1bWZuS0p6QmFSaDNZejg1Vlo2Ulk3eUd3YkFlMDFJOE83bkRIcEhub3ZQClM0WXM1S3NxbFlEcVNxVmRrM0Y3ODh1dlJhWGp4T3czQ3Z6d09hbUwvdyt6OHcvM3hpRGVkb3JSR1JmRTQ3enQKOS9mcXhUNWNwRXROWkRzWjNRVGtXclV2U1ZtYXFZczJMUHl4SHJCKzRvbEdDUkhpb253ajRnckFWdEo2NkZKdAprTUNDblg0R2pxT05VSXR2dk1Iak1Id3NPeFhTc2hHL1htUXZRZUc3eVlhUGxoY1U5WHVXaWduSjRlOVkyTDU1CjBXSUgxY2JRRFdVOHRMTzRpVlRsbkZ0WGdmbUJUdjhUTVkyNUF4blJwS2FudVgxY29Rc3JWdk9LcDlIdWVVUWoKVnFXV1hmTlRNeW9OL1JRNy9RYnBIdWhEUUVoWjZtNG9YMzBuUENrQ0F3RUFBYUFBTUEwR0NTcUdTSWIzRFFFQgpDd1VBQTRJQkFRQVE4dThmbHhta0xNaFNvNUFsbjhjRlVtQWRqZ2VTM2FuZEZlWXJmOHRsQ0lpYUFFMDJrN2NiCnF5TUdNMkZ6MmVpZ21mbEo0MmtMTkhTVDB6VG8xMlRwRzE1TFV1VzljMUZiTkhhZ0VhZzVDUFZqdzk0UllnVTcKcGhvMm1vbFUzNGJ3Sko5MEVaUVA0b0Q1U0pNN1VkZmh0dXVXUER1OEgyZHJmVXVIYUtqK1J4c1ZMVy9La1pzWAo3ZVlPTnZOcU1VMVBrY0lCRWgwTjJIdUZtaWVYREpEV3grdmhWYlQ1eHNwNVI3SUlodnhQTG92Q1ZOYldqWllLCnQ2UE96eDdWL0V6Qm02STlmUDhHOU9KbmNQYTlaZXZhdUpmRnl3cXhJUEhZb3ZEMkMxOXhvNEtTSkx1VFdld2UKUXNUSWpXWkdpZnV6VDVUN1NZazlCMVYzb3lUcDk1c0kKLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tCg==
+```
+
+
+Now create CertificateSigningRequest object
+
+```yaml
+apiVersion: certificates.k8s.io/v1beta1
+kind: CertificateSigningRequest
+metadata:
+  name: jane
+spec:
+ groups:
+ - system:authenticated
+ usages:
+   - digital signature
+   - key encipherment
+   - server auth
+ request: 
+    LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZEQ0NBVHdDQVFBd0R6RU5NQXNHQTFVRUF3d0VhbUZ1WlRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRApnZ0VQQURDQ0FRb0NnZ0VCQU12UWd1bWZuS0p6QmFSaDNZejg1Vlo2Ulk3eUd3YkFlMDFJOE83bkRIcEhub3ZQClM0WXM1S3NxbFlEcVNxVmRrM0Y3ODh1dlJhWGp4T3czQ3Z6d09hbUwvdyt6OHcvM3hpRGVkb3JSR1JmRTQ3enQKOS9mcXhUNWNwRXROWkRzWjNRVGtXclV2U1ZtYXFZczJMUHl4SHJCKzRvbEdDUkhpb253ajRnckFWdEo2NkZKdAprTUNDblg0R2pxT05VSXR2dk1Iak1Id3NPeFhTc2hHL1htUXZRZUc3eVlhUGxoY1U5WHVXaWduSjRlOVkyTDU1CjBXSUgxY2JRRFdVOHRMTzRpVlRsbkZ0WGdmbUJUdjhUTVkyNUF4blJwS2FudVgxY29Rc3JWdk9LcDlIdWVVUWoKVnFXV1hmTlRNeW9OL1JRNy9RYnBIdWhEUUVoWjZtNG9YMzBuUENrQ0F3RUFBYUFBTUEwR0NTcUdTSWIzRFFFQgpDd1VBQTRJQkFRQVE4dThmbHhta0xNaFNvNUFsbjhjRlVtQWRqZ2VTM2FuZEZlWXJmOHRsQ0lpYUFFMDJrN2NiCnF5TUdNMkZ6MmVpZ21mbEo0MmtMTkhTVDB6VG8xMlRwRzE1TFV1VzljMUZiTkhhZ0VhZzVDUFZqdzk0UllnVTcKcGhvMm1vbFUzNGJ3Sko5MEVaUVA0b0Q1U0pNN1VkZmh0dXVXUER1OEgyZHJmVXVIYUtqK1J4c1ZMVy9La1pzWAo3ZVlPTnZOcU1VMVBrY0lCRWgwTjJIdUZtaWVYREpEV3grdmhWYlQ1eHNwNVI3SUlodnhQTG92Q1ZOYldqWllLCnQ2UE96eDdWL0V6Qm02STlmUDhHOU9KbmNQYTlaZXZhdUpmRnl3cXhJUEhZb3ZEMkMxOXhvNEtTSkx1VFdld2UKUXNUSWpXWkdpZnV6VDVUN1NZazlCMVYzb3lUcDk1c0kKLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tCg==
+```
+
+Now you can submit this request. Once the object is created all admins can view the request using
+
+
+```bash
+kubectl get csr
+NAME   AGE    REQUESTOR             CONDITION
+jane   10m     admin@example.com    Pending
+```
+
+Any admin can approve the request by using the following command
+
+```bash
+kubectl certificate approve jane
+```
+
+Now you can view the ceritificate using
+
+```bash
+kubectl get csr jane -o yaml
+```
+
+Now you will again need to decode the certificate using `base64 --decode`
+
+```bash
+echo "encoded - certificate" | base64 --decode 
+```
+
+
+NOTE: The certificate related operations are carried by the controller-manager 
