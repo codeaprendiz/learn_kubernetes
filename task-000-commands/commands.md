@@ -76,7 +76,7 @@ kubectl config use-context prod-user@production
 kubectl config view --kubeconfig=my-custom-config
 kubectl config view
 kubectl config --kubeconfig=/root/my-kube-config use-context research
-
+kubectl proxy
 ```
 
 
