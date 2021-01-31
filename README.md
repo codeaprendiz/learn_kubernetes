@@ -83,6 +83,8 @@
 
 - [task-042-authentication](local-mac/security/task-042-authentication)
 - [task-043-tls-in-k8s-certificate-creation](local-mac/security/task-043-tls-in-k8s-certificate-creation)
+- [task-044-kubeconfig-file](local-mac/security/task-044-kubeconfig-file)
+- [task-045-api-groups](local-mac/security/task-045-api-groups)
 
 
 Credits
