@@ -40,3 +40,11 @@ Starting to server on 127.0.0.1:8001
 
 curl http://localhost:8001 -k   
 ```
+
+
+### Authorization
+
+When we share our cluster between different entities (dev team, qa team, admins) by logically partioning it
+using namespaces, we want to restrict access to their namespaces alone. that is what authorization can help you within a cluster
+
+
