@@ -85,7 +85,7 @@
 - [task-043-tls-in-k8s-certificate-creation](local-mac/security/task-043-tls-in-k8s-certificate-creation)
 - [task-044-kubeconfig-file](local-mac/security/task-044-kubeconfig-file)
 - [task-045-api-groups](local-mac/security/task-045-api-groups)
-
+- [task-046-RBAC](local-mac/security/task-046-RBAC)
 
 Credits
 - [certified-kubernetes-administrator-course](https://github.com/kodekloudhub/certified-kubernetes-administrator-course)

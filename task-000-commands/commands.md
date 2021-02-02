@@ -87,6 +87,7 @@ kubectl auth cai-i delete nodes
 
 kubectl auth can-i create deployments --as dev-user --namespace test
 
+
 ```
 
 
