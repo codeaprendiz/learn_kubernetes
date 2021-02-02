@@ -77,6 +77,16 @@ kubectl config view --kubeconfig=my-custom-config
 kubectl config view
 kubectl config --kubeconfig=/root/my-kube-config use-context research
 kubectl proxy
+
+kubectl get roles
+kubectl get rolebindings
+kubectl describe role developer
+
+kubectl auth can-i create deployments
+kubectl auth cai-i delete nodes
+
+kubectl auth can-i create deployments --as dev-user --namespace test
+
 ```
 
 

@@ -48,3 +48,11 @@ When we share our cluster between different entities (dev team, qa team, admins)
 using namespaces, we want to restrict access to their namespaces alone. that is what authorization can help you within a cluster
 
 
+- You can set the authorization mode using
+- When you specify multiple modes, it will authorize in the order in which it is specified
+
+```bash
+ExecStart=/usr/local/bin/kube-apiserver \\
+.
+ --authorization-mode=Node, RBAC, Webhook \\
+```
