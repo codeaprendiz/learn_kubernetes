@@ -88,6 +88,11 @@ kubectl auth cai-i delete nodes
 kubectl auth can-i create deployments --as dev-user --namespace test
 
 kubectl api-resources --nsmespaced=false
+
+kubectl api-resources.
+
+$ kubectl create secret docker-registry private-reg-cred --docker-username=dock_user --docker-password=dock_password --docker-server=myprivateregistry.com:5000 --docker-email=dock_user@myprivateregistry.com
+$ kubectl exec -it ubuntu-sleeper -- date -s '19 APR 2012 11:14:00'
 ```
 
 
