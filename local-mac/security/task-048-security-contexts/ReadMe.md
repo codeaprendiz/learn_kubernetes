@@ -85,5 +85,17 @@ Image Name: ubuntu
 SecurityContext: Capability SYS_TIME
 
 ```bash
+controlplane $ kubectl get pod ubuntu-sleeper -o yaml > pod.yaml
 
+controlplane $ cat pod.yaml | egrep -i "securityContext" -A 4 -B 4
+--
+  - command:
+    - sleep
+    - "4800"
+    image: ubuntu
+    securityContext:
+      capabilities:
+        add: ["NET_ADMIN", "SYS_TIME"]
+    imagePullPolicy: Always
+    name: ubuntu
 ```
