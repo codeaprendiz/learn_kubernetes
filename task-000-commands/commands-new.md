@@ -1,14 +1,14 @@
 # kubectl
 
 
-| Use Case         |     Example      |  
-| ------------- |:-------------:| 
-| [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply) | |
-| Apply resources.yaml | `kubectl apply -f resources.yaml` |
+Command | Use Case         |     Example      |  
+| ------------- |:-------------:| :-------------:| 
+| [apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply) | ||
+| | Apply resources.yaml | `kubectl apply -f resources.yaml` |
 | [config](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#config) ||
-| Display the current context | `$ kubectl config current-context`   |
-| Display merged kubeconfig settings | `kubectl config view --raw -o json` |
-| To set a user 'dave' entry in kubeconfig | `kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true`
+| | Display the current context | `$ kubectl config current-context`   |
+| | Display merged kubeconfig settings | `kubectl config view --raw -o json` |
+| | To set a user 'dave' entry in kubeconfig | `kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true`
 
 
 
