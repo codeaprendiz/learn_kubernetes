@@ -1,32 +1,22 @@
 # kubectl
 
-| Use Case         |     Example      |  Command |
-| ------------- |:-------------:| -----:|
-| Apply resources.yaml | `kubectl apply -f resources.yaml` |[apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
-| Display the current context | `$ kubectl config current-context` </br> `docker-desktop`  | [config](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#config) |
+[apply](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
+
+| Use Case         |     Example      |  
+| ------------- |:-------------:| 
+| Apply resources.yaml | `kubectl apply -f resources.yaml` |
 
 
-
-## config
 [config](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#config)
 
+| Use Case         |     Example      |  
+| ------------- |:-------------:| 
+| Display the current context | `$ kubectl config current-context`   |
+| Display merged kubeconfig settings | `kubectl config view --raw -o json` |
+| To set a user 'dave' entry in kubeconfig | `kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true`
 
 
 
-### view
-- To display merged kubeconfig settings or a specified kubeconfig file.
-```bash
-$ kubectl config view --raw -o json | jq -r '.clusters[].cluster."server"'
-https://kubernetes.docker.internal:6443
-```
-
-
-### set-credentials
-- To set a user 'dave' entry in kubeconfig
-
-```bash
-kubectl config set-credentials dave --client-key=$PWD/dave.key --embed-certs=true
-```
 
 ## cordon
 [cordon](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#cordon)
