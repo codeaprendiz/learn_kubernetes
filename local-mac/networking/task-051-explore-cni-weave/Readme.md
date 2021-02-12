@@ -58,3 +58,40 @@ controlplane $ cat /etc/cni/net.d/10-weave.conflist
 ```bash
 ###             "type": "weave-net",
 ```
+
+
+## In this practice test we will install weave-net POD networking solution to the cluster. Let us first inspect the setup.
+    
+
+### We have deployed an application called app in the default namespace. What is the state of the pod?
+
+```bash
+controlplane $ kubectl get pods 
+NAME   READY   STATUS              RESTARTS   AGE
+app    0/1     ContainerCreating   0          2m
+```
+
+
+### Inspect why the POD is not running
+    
+```bash
+controlplane $ kubectl describe pod app
+.
+.
+  Warning  FailedCreatePodSandBox  3m2s                kubelet, node01    Failed to create pod sandbox: rpc error: code = Unknown desc = [failed to set up sandbox container "08d525198a29517a1493caf4097b6db090b43a71a97cc02d9a7daf4f816e4545" network for pod "app": networkPlugin cni failed to set up pod "app_default" network: unable to allocate IP address: Post "http://127.0.0.1:6784/ip/08d525198a29517a1493caf4097b6db090b43a71a97cc02d9a7daf4f816e4545": dial tcp 127.0.0.1:6784: connect: connection refused, failed to clean up sandbox container "08d525198a29517a1493caf4097b6db090b43a71a97cc02d9a7daf4f816e4545" network for pod "app": networkPlugin cni failed to teardown pod "app_default" network: Delete "http://127.0.0.1:6784/ip/08d525198a29517a1493caf4097b6db090b43a71a97cc02d9a7daf4f816e4545": dial tcp 127.0.0.1:6784: connect: connection refused]
+```
+
+
+### Deploy weave-net networking solution to the cluster
+
+[doc](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+
+```bash
+controlplane $ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+serviceaccount/weave-net created
+clusterrole.rbac.authorization.k8s.io/weave-net created
+clusterrolebinding.rbac.authorization.k8s.io/weave-net created
+role.rbac.authorization.k8s.io/weave-net created
+rolebinding.rbac.authorization.k8s.io/weave-net created
+daemonset.apps/weave-net created
+```

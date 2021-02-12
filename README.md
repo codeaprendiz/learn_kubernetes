@@ -89,6 +89,8 @@
 - [task-047-image-security](local-mac/security/task-047-image-security)
 - [task-048-security-contexts](local-mac/security/task-048-security-contexts)
 - [task-049-network-policy](local-mac/security/task-049-network-policy)
+- [task-050-explore-env](local-mac/networking/task-050-explore-env)
+- [task-051-explore-cni-weave](local-mac/networking/task-051-explore-cni-weave)
 
 ### Networking
 
