@@ -8,7 +8,6 @@ To ensure no dublicate IPs
 An easy way to do it is to store the list of IPs in a file and make sure we have necessary code in
 our script to manage this file properly.
 
-![](.Readme_images/no-dublicate-ips-management.png)
 
 
 CNI comes with two built in plugins to which you can outsource this task
@@ -20,7 +19,6 @@ in our script or we can make our script dynamic to support different kinds of pl
 The CNI configuration file has a section called APM in which we can specify the type of plug in to be
 used the subnet and route to be used.
 
-![](.Readme_images/net-script-conf.png)
 
 
 
@@ -91,7 +89,7 @@ controlplane $ ip addr show weave
 
 ### What is the default gateway configured on the PODs scheduled on node03?
 
-- Try scheduling a pod on node03 and check ip route output    
+- Try scheduling a pod on node03 and check ip route output
 
 ```bash
 $ kubectl run busybox --image=nginx --dry-run=client -o yaml > pod.yaml
