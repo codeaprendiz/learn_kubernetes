@@ -91,6 +91,9 @@
 - [task-049-network-policy](local-mac/security/task-049-network-policy)
 - [task-050-explore-env](local-mac/networking/task-050-explore-env)
 - [task-051-explore-cni-weave](local-mac/networking/task-051-explore-cni-weave)
+- [task-052-IP-address-management](local-mac/networking/task-052-IP-address-management)
+- [task-053-service-networking](local-mac/networking/task-053-service-networking)
+- [task-054-dns](local-mac/networking/task-054-dns)
 
 ### Networking
 
