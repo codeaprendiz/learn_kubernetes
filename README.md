@@ -99,6 +99,10 @@
 
 - [task-050-explore-env](local-mac/networking/task-050-explore-env)
 
+### Cluster Creation
+
+- [task-055-create-k8s-using-kubeadm-vagrant](local-mac/cluster-creation/task-055-create-k8s-using-kubeadm-vagrant)
+
 Credits
 - [certified-kubernetes-administrator-course](https://github.com/kodekloudhub/certified-kubernetes-administrator-course)
 - [https://kubernetes.io/docs/home/](https://kubernetes.io/docs/home/)

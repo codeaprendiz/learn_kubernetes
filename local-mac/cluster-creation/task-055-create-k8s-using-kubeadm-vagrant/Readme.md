@@ -267,6 +267,39 @@ root@kubenode02:/home/vagrant# kubeadm join 192.168.56.2:6443 --token w6mva4.ykg
 This node has joined the cluster:
 * Certificate signing request was sent to apiserver and a response was received.
 * The Kubelet was informed of the new secure connection details.
+```
 
+- check the status of the nodes now
+```bash
+vagrant@kubemaster:~$ kubectl get nodes
+NAME         STATUS   ROLES                  AGE     VERSION
+kubemaster   Ready    control-plane,master   23m     v1.20.2
+kubenode01   Ready    <none>                 3m38s   v1.20.2
+kubenode02   Ready    <none>                 2m59s   v1.20.2
+```
 
+- create nginx pod
+
+```bash
+vagrant@kubemaster:~$ kubectl run nginx --image=nginx
+pod/nginx created
+
+vagrant@kubemaster:~$ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          23s
+```
+
+- you can destroy the cluster using
+
+```bash
+$ vagrant destroy       
+    kubenode02: Are you sure you want to destroy the 'kubenode02' VM? [y/N] y
+==> kubenode02: Forcing shutdown of VM...
+==> kubenode02: Destroying VM and associated drives...
+    kubenode01: Are you sure you want to destroy the 'kubenode01' VM? [y/N] y
+==> kubenode01: Forcing shutdown of VM...
+==> kubenode01: Destroying VM and associated drives...
+    kubemaster: Are you sure you want to destroy the 'kubemaster' VM? [y/N] y
+==> kubemaster: Forcing shutdown of VM...
+==> kubemaster: Destroying VM and associated drives...
 ```
